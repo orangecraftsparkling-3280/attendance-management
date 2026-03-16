@@ -41,10 +41,17 @@
                     @forelse($attendances as $attendance)
                     <tr>
                         <td>{{ $attendance->user->name }}</td>
-                        <td>{{ $attendance->start_time ? \Carbon\Carbon::parse($attendance->start_time)->format('H:i') : '-' }}</td>
-                        <td>{{ $attendance->end_time ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '勤務中' }}</td>
+                        {{-- アクセサ getDisplayStartTimeAttribute() を使用 --}}
+                        <td>{{ $attendance->display_start_time ?? '-' }}</td>
+
+                        {{-- アクセサ getDisplayEndTimeAttribute() を使用 --}}
+                        <td>{{ $attendance->display_end_time ?? '勤務中' }}</td>
+
+                        {{-- アクセサ getTotalRestTimeAttribute() を使用 --}}
                         <td>{{ $attendance->total_rest_time }}</td>
-                        <td >{{ $attendance->total_work_time }}</td>
+
+                        {{-- アクセサ getTotalWorkTimeAttribute() を使用 --}}
+                        <td>{{ $attendance->total_work_time }}</td>
                         <td>
                             <a href="{{ route('admin.attendance.detail', $attendance->id) }}" class="text-detail">詳細</a>
                         </td>
