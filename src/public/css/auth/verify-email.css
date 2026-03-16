@@ -68,3 +68,74 @@ body {
 .btn-resend:hover {
     text-decoration: underline;
 }
+
+/* 画面全体の設定 */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* コンテナ：画面の中央に配置 */
+.verify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* 白いカード部分 */
+.verify-card {
+    background-color: #ffffff;
+    padding: 80px 40px; /* 上下の余白を広めに */
+    border-radius: 4px; /* 角丸を最小限に */
+    max-width: 800px; /* 画像に近い横幅 */
+    width: 100%;
+    text-align: center;
+}
+
+/* メッセージテキスト */
+.verify-text {
+    font-size: 1.15rem;
+    font-weight: bold; /* 太字 */
+    color: #000000;
+    line-height: 1.8;
+    margin-bottom: 50px;
+}
+
+/* 「認証はこちらから」ボタン */
+.btn-primary {
+    display: inline-block;
+    background-color: lightgrey; /* 明るいグレー */
+    color: #000000 !important;
+    text-decoration: none;
+    padding: 14px 45px;
+    border-radius: 8px; /* 画像のような丸み */
+    border: 1px solid #000000; /* 細い黒枠 */
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 50px;
+}
+
+.btn-primary:hover {
+    background-color: #d1d5db;
+}
+
+/* 再送セクション */
+.resend-section {
+    margin-top: 10px;
+}
+
+/* 「承認メールを再送する」リンクボタン */
+.btn-resend {
+    background: none;
+    border: none;
+    color: #418aff; /* 明るい青 */
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-resend:hover {
+    text-decoration: underline;
+}

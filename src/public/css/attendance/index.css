@@ -124,3 +124,44 @@
     width: 0.3em; /* 点滅しても文字がズレないように幅を固定 */
     text-align: center;
 }
+
+/* --- レスポンス調整 --- */
+
+/* タブレット (768px - 850px) 用 */
+@media screen and (max-width: 850px) {
+    .attendance__panel {
+        padding: 30px 20px; /* パネルの余白を少し詰める */
+        min-width: auto;     /* 画面幅に合わせる */
+        width: 100%;
+    }
+
+    #active-time {
+        font-size: 60px;     /* タブレットでは少しサイズを落とす */
+    }
+
+    #current-date {
+        font-size: 24px;     /* 日付もバランスを見て調整 */
+    }
+
+    .attendance__button-primary,
+    .attendance__button-secondary,
+    .attendance__button-submit {
+        height: 50px;        /* ボタンの高さを少し抑える */
+        font-size: 15px;
+    }
+
+    .attendance__button-row {
+        gap: 8px;            /* ボタン同士の隙間を詰める */
+    }
+}
+
+/* PC (1400px以上) 用 */
+@media screen and (min-width: 1400px) {
+    #active-time {
+        font-size: 100px;    /* 超大型画面ならさらに大きくしてもカッコいいです */
+    }
+
+    .attendance__panel {
+        min-width: 500px;    /* PCではどっしりと構える */
+    }
+}

@@ -85,3 +85,37 @@ text-decoration: none;
 font-size: 16px;
 color:skyblue;
 }
+
+/* --- レスポンス調整 --- */
+
+/* タブレット (768px - 850px) 用 */
+@media screen and (max-width: 850px) {
+    .login-form_content {
+        padding: 20px 20px; /* 余白を少し調整 */
+    }
+
+    .form {
+        max-width: 90%; /* 画面幅に対して少し余裕を持たせる */
+    }
+
+    .form_input-text input {
+        height: 45px; /* タブレットでタップしやすいように少し高さを出す */
+        font-size: 16px; /* 入力時に勝手にズームされないための適切なサイズ */
+    }
+
+    .form_button-submit {
+        height: 55px; /* ボタンも押しやすく調整 */
+        font-size: 18px;
+    }
+}
+
+/* PC (1400px以上) 用 */
+@media screen and (min-width: 1400px) {
+    .login-form_heading h1 {
+        font-size: 28px; /* 大きな画面に合わせてタイトルを強調 */
+    }
+
+    .form {
+        margin-top: 50px; /* 上に少し余裕を持たせる */
+    }
+}

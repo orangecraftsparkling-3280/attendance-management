@@ -155,3 +155,52 @@ body {
     padding: 40px !important;
     color: #888;
 }
+
+/* --- 7. レスポンス調整 --- */
+
+/* タブレット (768px - 850px) 用 */
+@media screen and (max-width: 850px) {
+    .attendance-page {
+        padding: 0 10px;
+        margin: 20px auto;
+    }
+
+    .nav-container {
+        height: 50px;
+    }
+
+    .nav-btn {
+        padding: 0 10px;
+        font-size: 14px; /* 少しコンパクトに */
+    }
+
+    .current-display {
+        font-size: 16px;
+    }
+
+    /* テーブルの文字サイズを落として1行に収める */
+    .attendance-table th,
+    .attendance-table td {
+        padding: 8px 4px;
+        font-size: 13px;
+    }
+
+    .text-detail {
+        font-size: 13px;
+        display: block; /* タップ領域を広げる */
+        padding: 5px 0;
+    }
+}
+
+/* PC (1400px以上) 用 */
+@media screen and (min-width: 1400px) {
+    .attendance-page {
+        max-width: 1000px; /* 少し広げてゆったり見せる */
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        padding: 15px;
+        font-size: 16px;
+    }
+}

@@ -142,3 +142,40 @@ body {
     padding: 40px !important;
     color: #888;
 }
+
+/* --- 7. レスポンス調整 --- */
+
+/* タブレット (768px - 850px) 用の調整 */
+@media screen and (max-width: 850px) {
+    .attendance-page {
+        padding: 0 10px; /* 左右の余白を少し削る */
+        margin: 20px auto;
+    }
+
+    .nav-container {
+        height: 50px; /* 少し高さを抑える */
+    }
+
+    .current-display {
+        font-size: 16px; /* 文字を少し小さく */
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        padding: 8px 4px; /* セルの余白を詰める */
+        font-size: 13px;  /* 文字サイズを落として1行に収める */
+    }
+}
+
+/* PC (1400px以上) 用の調整 */
+@media screen and (min-width: 1400px) {
+    .attendance-page {
+        max-width: 1100px; /* PCでは少し広げて一覧性を高める */
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        padding: 15px; /* PCではゆったりと余白を持たせる */
+        font-size: 16px;
+    }
+}

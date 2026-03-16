@@ -184,3 +184,47 @@ body {
     background-color: #f0f0f0; /* ホバー時に少しグレーに */
     opacity: 0.8;
 }
+
+/* --- レスポンス調整 --- */
+
+/* タブレット (768px - 850px) 用 */
+@media screen and (max-width: 850px) {
+    .attendance-page {
+        padding: 0 10px;
+    }
+
+    /* CSVボタンをタブレットでは少し目立たせる */
+    .header-actions {
+        justify-content: center; /* タブレットでは中央寄せにして押しやすくする */
+        margin-top: 10px;
+    }
+
+    .csv-btn {
+        width: 150px; /* タップしやすく少し幅を広げる */
+        height: 45px;
+    }
+
+    /* テーブルのフォントを1段落とす */
+    .attendance-table th,
+    .attendance-table td {
+        font-size: 13px;
+        padding: 8px 5px;
+    }
+}
+
+/* PC (1400px以上) 用 */
+@media screen and (min-width: 1400px) {
+    .attendance-page {
+        max-width: 1100px; /* PCではゆったりと1100px程度まで広げる */
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        font-size: 16px; /* 文字を大きくして視認性アップ */
+        padding: 15px;
+    }
+
+    .list-title h1 {
+        font-size: 28px;
+    }
+}

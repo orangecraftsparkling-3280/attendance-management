@@ -225,3 +225,40 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .detail-table tr:first-child td:last-child {
     border-top-right-radius: 8px;
 }
+
+/* --- 7. レスポンス調整 --- */
+
+/* タブレット (768px - 850px) 用 */
+@media screen and (max-width: 850px) {
+    .attendance-page {
+        padding: 0 15px; /* 左右の余白を少し詰める */
+        margin: 20px auto;
+    }
+
+    .detail-table th {
+        width: 25%; /* ラベル側を少し広げる */
+        font-size: 14px; /* ラベルは少し小さくして内容を優先 */
+    }
+
+    /* 時刻入力枠と日付表示の幅を調整 */
+    .time-box, .name-display, .date-year, .date-day {
+        width: 33%; /* 25%だと20pxの文字が窮屈なので少し広げる */
+        font-size: 18px; /* わずかにサイズを落として枠内に収める */
+    }
+
+    .range-separator, .date-spacer {
+        width: 10%; /* 記号の幅を詰めてスペースを捻出 */
+    }
+
+    .detail-textarea {
+        width: 80%; /* 備考欄をタブレットの幅に合わせて広げる */
+        font-size: 18px;
+    }
+}
+
+/* PC (1400px以上) 用 */
+@media screen and (min-width: 1400px) {
+    .attendance-page {
+        max-width: 900px; /* 大きな画面では少しだけ横幅の余裕を増やす */
+    }
+}

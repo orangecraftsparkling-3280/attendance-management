@@ -151,4 +151,41 @@ body {
     border-bottom-right-radius: 8px;
 }
 
+/* --- レスポンス調整 --- */
 
+/* タブレット (768px - 850px) 用 */
+@media screen and (max-width: 850px) {
+    .request-page {
+        padding: 0 10px;
+    }
+
+    .request-tabs {
+        gap: 20px; /* タブレットでは間隔を詰める */
+        justify-content: space-around; /* 均等に配置して指で押しやすくする */
+    }
+
+    .tab-item {
+        font-size: 14px; /* 文字を少し小さく */
+    }
+
+    .request-table th,
+    .request-table td {
+        padding: 10px 8px; /* セルの余白を削る */
+        font-size: 13px;    /* 情報を1行に収めるための調整 */
+    }
+
+    .reason-cell {
+        max-width: 120px;  /* タブレットではさらに短く省略 */
+    }
+}
+
+/* PC (1400px以上) 用 */
+@media screen and (min-width: 1400px) {
+    .request-page {
+        max-width: 1000px; /* PCでは少し広げて一覧性を高める */
+    }
+
+    .reason-cell {
+        max-width: 400px;  /* 広い画面では理由もしっかり読めるように */
+    }
+}
