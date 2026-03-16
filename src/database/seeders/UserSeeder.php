@@ -19,9 +19,9 @@ class UserSeeder extends Seeder
         ]);
 
         $testUsers = [
-            ['name' => '太郎', 'email' => 'user1@example.com'],
-            ['name' => '次郎', 'email' => 'user2@example.com'],
-            ['name' => '三郎', 'email' => 'user3@example.com'],
+            ['name' => 'user1', 'email' => 'user1@example.com'],
+            ['name' => 'user2', 'email' => 'user2@example.com'],
+            ['name' => 'user3', 'email' => 'user3@example.com'],
         ];
         foreach ($testUsers as $userData) {
             User::factory()
