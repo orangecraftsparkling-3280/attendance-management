@@ -1,0 +1,111 @@
+/* --- 全体レイアウト --- */
+body {
+    background-color: #f0eff2;
+    margin: 0;
+}
+
+.request-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- タイトル --- */
+.list-title {
+    margin-bottom: 25px;
+    border-left: 5px solid #000;
+    padding-left: 15px;
+    background-color: transparent;
+}
+
+.list-title h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+.request-table thead tr {
+    /* ヘッダー行も1つの塊として見せる */
+    background-color: #ffffff;
+}
+
+.request-table th {
+    padding: 10px 15px; /* 少し高さを出すと高級感が出ます */
+    background-color: #ffffff; /* 白背景に指定 */
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+/* ヘッダー左端の角丸 */
+.request-table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+/* ヘッダー右端の角丸 */
+.request-table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.request-table {
+    width: 100%;
+    /* 行の間隔を空けるための重要設定 */
+    border-collapse: separate;
+    border-spacing: 0 3px;
+}
+
+.request-table td {
+    padding: 10px;
+    background-color: #ffffff; /* 各行を白背景に */
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    color: #374151;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* 軽い影 */
+}
+
+/* 最後の行の、最初のセル (左下) */
+.request-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+/* 最後の行の、最後のセル (右下) */
+.request-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.text-detail {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.text-detail:hover {
+    text-decoration: underline;
+}
+
+.request-table th:nth-child(1),
+.request-table td:nth-child(1) {
+    width: 30%;
+}
+
+/* 2. メールアドレス：一番長く重い情報なので、残りのスペースを広く使う */
+.request-table th:nth-child(2),
+.request-table td:nth-child(2) {
+    width: 50%;
+}
+
+/* 3. 詳細：ボタン的な役割なので、キュッと幅を狭める */
+.request-table th:nth-child(3),
+.request-table td:nth-child(3) {
+    width: 20%;
+    text-align: center; /* 詳細リンクだけ中央寄せにするとバランスが良くなります */
+}

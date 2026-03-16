@@ -4,112 +4,227 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Attendance;
-use App\Models\Rest;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AttendanceRequest;
 use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
-    /**
-     * 打刻ページ表示 & ステータス判定
-     */
+    // ... index, punchIn, restStart, restEnd, punchOut は変更なし ...
     public function index()
     {
-        $attendance = Attendance::where('user_id', Auth::id())
-            ->where('date', Carbon::today())
+        $user = Auth::user();
+        $today = Carbon::today()->format('Y-m-d');
+
+        // 今日の最新の勤怠レコードを取得
+        $attendance = Attendance::with('rests')
+            ->where('user_id', $user->id)
+            ->where('date', $today)
             ->first();
 
+        // 初期値は「勤務外」
         $status = '勤務外';
 
         if ($attendance) {
             if ($attendance->end_time) {
                 $status = '退勤済';
-            }
-            // 紐付く休憩の中で終了時間(end_time)が空のものが1つでもあるか
-            elseif ($attendance->rests()->whereNull('end_time')->exists()) {
-                $status = '休憩中';
             } else {
-                $status = '出勤中';
+                // 最新の休憩レコードをチェック
+                $latestRest = $attendance->rests->last();
+
+                if ($latestRest && is_null($latestRest->end_time)) {
+                    $status = '休憩中';
+                } else {
+                    $status = '出勤中';
+                }
             }
         }
 
-        return view('attendance', compact('status'));
+        return view('attendance/index', compact('attendance', 'status'));
     }
-
-    /**
-     * 出勤処理
-     */
     public function punchIn()
     {
         Attendance::create([
-            'user_id'    => Auth::id(),
-            'date'       => Carbon::today(),
+            'user_id' => auth()->id(),
+            'date' => Carbon::today(),
             'start_time' => Carbon::now()->format('H:i'),
+            'status' => 0, // 通常
         ]);
-
         return redirect()->back();
     }
 
-    /**
-     * 休憩開始処理（複数回対応）
-     */
+    public function punchOut()
+    {
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->where('date', Carbon::today())->first();
+        $attendance->update(['end_time' => Carbon::now()->format('H:i')]);
+        return redirect()->back();
+    }
+
     public function restStart()
     {
-        $attendance = Attendance::where('user_id', Auth::id())
-            ->where('date', Carbon::today())
-            ->first();
-
-        if ($attendance) {
-            // 新しい休憩レコードを作成
-            $attendance->rests()->create([
-                'start_time' => Carbon::now()->format('H:i'),
-            ]);
-        }
-
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->where('date', Carbon::today())->first();
+        $attendance->rests()->create(['start_time' => Carbon::now()->format('H:i')]);
         return redirect()->back();
     }
 
-    /**
-     * 休憩終了処理（複数回対応）
-     */
     public function restEnd()
     {
-        $attendance = Attendance::where('user_id', Auth::id())
-            ->where('date', Carbon::today())
-            ->first();
+        $attendance = Attendance::where('user_id', auth()->id())
+            ->where('date', Carbon::today())->first();
+        $rest = $attendance->rests()->whereNull('end_time')->first();
+        $rest->update(['end_time' => Carbon::now()->format('H:i')]);
+        return redirect()->back();
+    }
+    /**
+     * 勤怠一覧表示
+     */
+    public function list(Request $request)
+    {
+        $monthParam = $request->query('month', now()->format('Y-m'));
+        $date = Carbon::parse($monthParam);
 
-        if ($attendance) {
-            // まだ終わっていない（end_timeがNULL）最新の休憩を1件取得
-            $latestRest = $attendance->rests()
-                ->whereNull('end_time')
-                ->latest()
+        $currentYear = $date->year;
+        $currentMonth = $date->month;
+
+        $prevMonth = $date->copy()->subMonth()->format('Y-m');
+        $nextMonth = $date->copy()->addMonth()->format('Y-m');
+
+        $calendar = [];
+        $daysInMonth = $date->daysInMonth;
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $calendar[] = $date->copy()->day($i);
+        }
+
+        $attendances = Attendance::with('rests')
+            ->where('user_id', auth()->id())
+            ->whereYear('date', $date->year)
+            ->whereMonth('date', $date->month)
+            ->get()
+            ->keyBy(function ($item) {
+                return \Carbon\Carbon::parse($item->getAttributes()['date'])->format('Y-m-d');
+            });
+
+        return view('attendance.list', compact(
+            'currentYear',
+            'currentMonth',
+            'prevMonth',
+            'nextMonth',
+            'calendar',
+            'attendances'
+        ));
+    }
+
+    /**
+     * 勤怠詳細表示
+     */
+    public function detail($id)
+    {
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $id)) {
+            $attendance = Attendance::with(['user', 'rests'])
+                ->where('user_id', auth()->id())
+                ->where('date', $id)
                 ->first();
+            $targetDate = $id;
+        } else {
+            $attendance = Attendance::with(['user', 'rests'])->find($id);
+            $targetDate = $attendance ? $attendance->getAttributes()['date'] : now()->format('Y-m-d');
+        }
 
-            if ($latestRest) {
-                $latestRest->update([
-                    'end_time' => Carbon::now()->format('H:i'),
+        if (!$attendance) {
+            // インスタンス化する際に配列でデータを渡すか、fillを使用します
+            $attendance = new Attendance([
+                'user_id' => auth()->id(),
+                'date'    => $targetDate, // ここで 2026-03-02 等が入る
+                'status'  => 0,
+            ]);
+
+            // 重要：Bladeの getRawOriginal('date') で値が取れるように、
+            // 内部の attributes 配列に値を確実に同期させます。
+            $attendance->setRawAttributes([
+                'date'    => $targetDate,
+                'user_id' => auth()->id(),
+                'status'  => 0,
+            ], true);
+
+            $attendance->setRelation('user', auth()->user());
+            $attendance->setRelation('rests', collect());
+        }
+
+        return view('attendance.detail', compact('attendance'));
+    }
+
+    /**
+     * 修正申請の作成（一般ユーザー）
+     */
+    public function update(AttendanceRequest $request, $id)
+    {
+        // 1. 日付かIDかを判定（バリデーションは AttendanceRequest で完了済み）
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $id)) {
+            $targetDate = $id;
+        } else {
+            $targetDate = Attendance::findOrFail($id)->getAttributes()['date'];
+        }
+
+        // 2. 勤怠本体の更新
+        $attendance = Attendance::updateOrCreate(
+            ['user_id' => auth()->id(), 'date' => $targetDate],
+            [
+                'start_time' => $request->start_time,
+                'end_time'   => $request->end_time,
+                'reason'     => $request->reason,
+                'status'     => 1, // 承認待ち
+            ]
+        );
+
+        // 3. 既存の休憩時間の更新
+        if ($request->has('rests')) {
+            foreach ($request->rests as $restId => $restData) {
+                $attendance->rests()->where('id', $restId)->update([
+                    'start_time' => $restData['start'],
+                    'end_time'   => $restData['end'],
                 ]);
             }
         }
 
-        return redirect()->back();
-    }
-
-    /**
-     * 退勤処理
-     */
-    public function punchOut()
-    {
-        $attendance = Attendance::where('user_id', Auth::id())
-            ->where('date', Carbon::today())
-            ->first();
-
-        if ($attendance) {
-            $attendance->update([
-                'end_time' => Carbon::now()->format('H:i'),
-            ]);
+        // 4. 新規の休憩を追加
+        if ($request->has('new_rests')) {
+            foreach ($request->new_rests as $newData) {
+                // start と end 両方ある場合のみ保存
+                if (!empty($newData['start']) && !empty($newData['end'])) {
+                    $attendance->rests()->create([
+                        'start_time' => $newData['start'],
+                        'end_time'   => $newData['end'],
+                    ]);
+                }
+            }
         }
 
-        return redirect()->back();
+        return redirect()->route('stamp_correction_request.list')
+            ->with('success', '修正申請を保存しました。管理者の承認をお待ちください。');
+    }
+    /**
+     * 申請一覧画面を表示（タブ切り替え対応）
+     */
+    public function requestList(Request $request)
+    {
+        $tab = $request->query('tab', 'waiting');
+        $status = ($tab === 'approved') ? 2 : 1;
+
+        // クエリのベースを作成
+        $query = Attendance::with('user')
+            ->whereNotNull('reason')
+            ->where('status', $status)
+            ->orderBy('updated_at', 'desc');
+
+        // 管理者でなければ、自分のデータだけに絞り込む
+        if (auth()->user()->role !== 'admin') {
+            $query->where('user_id', auth()->id());
+        }
+
+        $attendances = $query->get();
+
+        return view('stamp_correction_request/list', compact('attendances', 'tab'));
     }
 }

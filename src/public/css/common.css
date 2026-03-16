@@ -5,7 +5,7 @@
     padding: 10px 0;
 }
 .header-inner {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -38,4 +38,36 @@
     text-decoration: none;
     color: #fff;
     font-size: 14px;
+    /* --- 追加：ボタンと高さを合わせる --- */
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    height: 30px; /* ロゴの高さ(30px)に合わせると、ヘッダー全体が一直線になります */
+}
+
+.logout__button {
+    background: none;
+    border: none;
+    color: white;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    /* --- ここからが重要 --- */
+    line-height: 1; /* 行の高さを最小限にしてズレを防ぐ */
+    vertical-align: middle; /* 垂直方向の基準を中央に */
+    display: inline-flex; /* フレックスボックスにして整列しやすくする */
+    align-items: center; /* 中央揃え */
+}
+
+/* 念のため親のフォームも揃える */
+.logout-form {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.logout__button:hover {
+    opacity: 0.8;
 }

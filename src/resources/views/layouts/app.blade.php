@@ -19,13 +19,32 @@
 
             <nav class="header-nav">
                 @auth
-                <a href="#">勤怠</a>
-                <a href="#">勤怠一覧</a>
-                <a href="#">申請</a>
-                <form action="{{ route('logout') }}" method="post">
+                {{-- 管理者ログイン画面以外の場合のみメニュー全体を表示 --}}
+                @if(!Route::is('admin.login'))
+
+                {{-- 1. 権限に応じたメニューの出し分け --}}
+                @if(auth()->user()->role === 'admin')
+                <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
+                <a href="{{ route('admin.staff.list') }}">スタッフ一覧</a>
+                <a href="{{ route('stamp_correction_request.list') }}">申請一覧</a>
+                @else
+                <a href="{{ route('attendance.index') }}">勤怠</a>
+                <a href="{{ route('attendance.list') }}">勤怠一覧</a>
+                <a href="{{ route('stamp_correction_request.list') }}">申請</a>
+                @endif
+
+                {{-- 2. ログアウトボタン --}}
+                <form action="{{ route('logout') }}" method="post" class="logout-form" >
                     @csrf
+
+                    @if(auth()->user()->role === 'admin')
+                    <input type="hidden" name="login_type" value="admin">
+                    @endif
+
                     <button type="submit" class="logout__button">ログアウト</button>
                 </form>
+
+                @endif
                 @endauth
             </nav>
         </div>

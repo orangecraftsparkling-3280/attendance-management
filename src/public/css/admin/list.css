@@ -1,0 +1,144 @@
+/* --- 全体レイアウト --- */
+body {
+    background-color: #f0eff2;
+    margin: 0;
+}
+
+.attendance-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- タイトル --- */
+.list-title {
+    margin-bottom: 25px;
+    border-left: 5px solid #000;
+    padding-left: 15px;
+    background-color: transparent;
+}
+
+.list-title h1 {
+    font-size: 24px;
+    color: #333;
+    margin: 0;
+}
+
+/* --- ナビゲーション（前日・翌日など） --- */
+.nav-container {
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff; /* 白いカード */
+    border-radius: 8px;
+    border: 1px solid #eee;
+    margin-bottom: 20px; /* テーブルとの間隔 */
+}
+
+.current-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+.nav-btn {
+    text-decoration: none;
+    padding: 0 15px;
+    color: #888;
+    font-weight: bold;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.nav-btn:hover {
+    color: #333;
+}
+
+.current-display {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000;
+}
+.attendance-table thead tr {
+    /* ヘッダー行も1つの塊として見せる */
+    background-color: #ffffff;
+}
+
+.attendance-table th {
+    padding: 20px 15px; /* 少し高さを出すと高級感が出ます */
+    background-color: #ffffff; /* 白背景に指定 */
+    color: #666;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* ヘッダー左端の角丸 */
+.attendance-table th:first-child {
+    border-top-left-radius: 8px;
+}
+
+/* ヘッダー右端の角丸 */
+.attendance-table th:last-child {
+    border-top-right-radius: 8px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.attendance-table {
+    width: 100%;
+    /* 行の間隔を空けるための重要設定 */
+    border-collapse: separate;
+    border-spacing: 0 3px;
+}
+
+.attendance-table th {
+    padding: 10px;
+    color: #666;
+    font-size: 14px;
+    text-align: center;
+}
+
+.attendance-table td {
+    padding: 10px;
+    background-color: #ffffff; /* 各行を白背景に */
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    font-size: 15px;
+    color: #374151;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* 軽い影 */
+}
+
+/* 最後の行の、最初のセル (左下) */
+.attendance-table tbody tr:last-child td:first-child {
+    border-bottom-left-radius: 8px;
+}
+
+/* 最後の行の、最後のセル (右下) */
+.attendance-table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 8px;
+}
+
+.text-detail {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.text-detail:hover {
+    text-decoration: underline;
+}
+
+.no-data {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 40px !important;
+    color: #888;
+}
