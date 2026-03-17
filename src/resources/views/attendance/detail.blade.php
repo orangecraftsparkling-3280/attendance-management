@@ -15,7 +15,6 @@
         @method('PATCH')
 
         <table class="detail-table">
-            {{-- 名前 --}}
             <tr>
                 <th>名前</th>
                 <td>
@@ -25,12 +24,10 @@
                 </td>
             </tr>
 
-            {{-- 日付 --}}
             <tr>
                 <th>日付</th>
                 <td>
                     <div class="info-text date-display">
-                        {{-- モデルのアクセサ getFormattedDateAttribute を使用 --}}
                         <span class="date-year">{{ $attendance->date->format('Y') }}年</span>
                         <span class="date-spacer"></span>
                         <span class="date-day">{{ $attendance->date->format('n') }}月{{ $attendance->date->format('j') }}日</span>
@@ -38,12 +35,10 @@
                 </td>
             </tr>
 
-            {{-- 出勤・退勤 --}}
             <tr>
                 <th>出勤・退勤</th>
                 <td class="time-cell">
                     @if($attendance->status == 1)
-                    {{-- アクセサ display_start_time / display_end_time を使用 --}}
                     <span class="time-box no-border">{{ $attendance->display_start_time }}</span>
                     <span class="range-separator">～</span>
                     <span class="time-box no-border">{{ $attendance->display_end_time ?? '勤務中' }}</span>
@@ -55,13 +50,11 @@
                 </td>
             </tr>
 
-            {{-- 既存の休憩 --}}
             @foreach($attendance->rests as $index => $rest)
             <tr>
                 <th>休憩{{ $index + 1 }}</th>
                 <td class="time-cell">
                     @php
-                    // 休憩はモデルが別（Rest.php）なので、秒を消すためにフォーマット
                     $restStart = $rest->start_time ? \Carbon\Carbon::parse($rest->start_time)->format('H:i') : '';
                     $restEnd = $rest->end_time ? \Carbon\Carbon::parse($rest->end_time)->format('H:i') : '';
                     @endphp
@@ -79,7 +72,6 @@
             </tr>
             @endforeach
 
-            {{-- 以下、新規休憩・備考・エラー表示・ボタン部分は変更なし --}}
             @if($attendance->status != 1)
             <tr>
                 <th>休憩{{ count($attendance->rests) + 1 }}</th>
@@ -102,7 +94,7 @@
         </table>
 
         <div class="edit-section">
-            <div class="form__error">
+            <div class="form_error">
                 @error('time_error') <p class="error-message">{{ $message }}</p> @enderror
                 @error('rest_error') <p class="error-message">{{ $message }}</p> @enderror
                 @error('rest_combined_error') <p class="error-message">{{ $message }}</p> @enderror

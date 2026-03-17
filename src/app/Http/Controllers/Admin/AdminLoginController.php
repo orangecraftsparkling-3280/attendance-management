@@ -24,7 +24,6 @@ class AdminLoginController extends Controller
             $user = Auth::user();
 
             if ($user->role === 'admin') {
-                // ★ 管理者の証拠をブラウザに刻む
                 setcookie('is_admin_user', '1', 0, '/');
 
                 $request->session()->regenerate();

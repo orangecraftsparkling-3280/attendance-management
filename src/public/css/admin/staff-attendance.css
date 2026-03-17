@@ -1,4 +1,4 @@
-/* --- 全体レイアウト --- */
+
 body {
     background-color: #f0eff2;
     margin: 0;
@@ -10,7 +10,6 @@ body {
     padding: 0 20px;
 }
 
-/* --- タイトル --- */
 .list-title {
     margin-bottom: 25px;
     border-left: 5px solid #000;
@@ -24,16 +23,15 @@ body {
     margin: 0;
 }
 
-/* --- ナビゲーション（前日・翌日など） --- */
 .nav-container {
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff; /* 白いカード */
+    background-color: #ffffff;
     border-radius: 8px;
     border: 1px solid #eee;
-    margin-bottom: 20px; /* テーブルとの間隔 */
+    margin-bottom: 20px;
 }
 
 .current-month {
@@ -61,13 +59,12 @@ body {
     color: #000;
 }
 .attendance-table thead tr {
-    /* ヘッダー行も1つの塊として見せる */
     background-color: #ffffff;
 }
 
 .attendance-table th {
-    padding: 20px 15px; /* 少し高さを出すと高級感が出ます */
-    background-color: #ffffff; /* 白背景に指定 */
+    padding: 20px 15px;
+    background-color: #ffffff;
     color: #666;
     font-size: 14px;
     font-weight: bold;
@@ -77,13 +74,11 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* ヘッダー左端の角丸 */
 .attendance-table th:first-child {
     border-left: 1px solid #eee;
     border-top-left-radius: 8px;
 }
 
-/* ヘッダー右端の角丸 */
 .attendance-table th:last-child {
     border-right: 1px solid #eee;
     border-top-right-radius: 8px;
@@ -95,7 +90,6 @@ body {
 
 .attendance-table {
     width: 100%;
-    /* 行の間隔を空けるための重要設定 */
     border-collapse: separate;
     border-spacing: 0 3px;
 }
@@ -109,26 +103,23 @@ body {
 
 .attendance-table td {
     padding: 10px;
-    background-color: #ffffff; /* 各行を白背景に */
+    background-color: #ffffff;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     font-size: 15px;
     color: #374151;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* 軽い影 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* 最後の行の、最初のセル (左下) */
 .attendance-table tbody tr:last-child td:first-child {
     border-bottom-left-radius: 8px;
 }
 
-/* 最後の行の、最後のセル (右下) */
 .attendance-table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 8px;
 }
 
-/* --- ユーティリティ --- */
 .text-left {
     text-align: left !important;
     padding-left: 20px !important;
@@ -156,23 +147,22 @@ body {
     color: #888;
 }
 
-/* --- CSVボタンのデザイン --- */
 .header-actions {
     display: flex;
-    justify-content: flex-end; /* 右端に寄せる */
-    margin-bottom: 15px;      /* テーブルとの間隔 */
-    padding-right: 5px;       /* テーブルの端と微調整 */
+    justify-content: flex-end;
+    margin-bottom: 15px;
+    padding-right: 5px;
 }
 .csv-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 20px;
-    width: 100px;            /* ボタンの幅 */
-    height: 35px;           /* ボタンの高さ（少しスマートに） */
-    background-color: #000;  /* 白背景 */
-    color: white;             /* 黒文字 */
-    border: 1px solid #000;  /* 黒枠 */
+    width: 100px;
+    height: 35px;
+    background-color: #000;
+    color: white;
+    border: 1px solid #000;
     border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
@@ -181,30 +171,25 @@ body {
 }
 
 .csv-btn:hover {
-    background-color: #f0f0f0; /* ホバー時に少しグレーに */
+    background-color: #f0f0f0;
     opacity: 0.8;
 }
 
-/* --- レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用 */
 @media screen and (max-width: 850px) {
     .attendance-page {
         padding: 0 10px;
     }
 
-    /* CSVボタンをタブレットでは少し目立たせる */
     .header-actions {
-        justify-content: center; /* タブレットでは中央寄せにして押しやすくする */
+        justify-content: center;
         margin-top: 10px;
     }
 
     .csv-btn {
-        width: 150px; /* タップしやすく少し幅を広げる */
+        width: 150px;
         height: 45px;
     }
 
-    /* テーブルのフォントを1段落とす */
     .attendance-table th,
     .attendance-table td {
         font-size: 13px;
@@ -212,15 +197,14 @@ body {
     }
 }
 
-/* PC (1400px以上) 用 */
 @media screen and (min-width: 1400px) {
     .attendance-page {
-        max-width: 1100px; /* PCではゆったりと1100px程度まで広げる */
+        max-width: 1100px;
     }
 
     .attendance-table th,
     .attendance-table td {
-        font-size: 16px; /* 文字を大きくして視認性アップ */
+        font-size: 16px;
         padding: 15px;
     }
 

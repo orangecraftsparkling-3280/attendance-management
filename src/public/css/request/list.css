@@ -30,53 +30,45 @@ body {
     font-size: 16px !important;
 }
 
-/* タブ全体のコンテナ */
 .request-tabs {
     display: flex;
-    gap: 50px;         /* 間隔を少し広げると、下線がなくても区切りが分かりやすくなります */
+    gap: 50px;
     margin-bottom: 10px;
     padding-left: 5px;
     border-bottom: 1px solid #d1d1d1;
 }
 
-/* 各タブの基本スタイル */
 .tab-item {
     text-decoration: none;
-    color: #888;       /* 非選択時は薄いグレー */
+    color: #888;
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
     transition: color 0.2s;
 }
 
-/* 選択中のタブ：色を黒にするだけ */
 .tab-item.active {
-    color: #000;       /* 選択中はハッキリとした黒 */
-    /* 下線を作る ::after の記述を削除しました */
+    color: #000;
 }
 
-/* ホバー時 */
 .tab-item:hover {
     color: #333;
 }
 
-/* ヘッダー全体の設定 */
 .request-table th {
-    padding: 15px;             /* データ行と高さを合わせる */
-    background-color: #ffffff; /* ヘッダーも背景白に */
-    color: #333;               /* 文字を少し濃くして見やすく */
+    padding: 15px;
+    background-color: #ffffff;
+    color: #333;
     font-size: 16px;
-    font-weight: bold;         /* ヘッダーなので太字に */
+    font-weight: bold;
     text-align: left;
-    border-bottom: 1px solid #eee; /* 下に細い線を入れて区切りを明確に */
+    border-bottom: 1px solid #eee;
 }
 
-/* ヘッダーの左端の角を丸くする */
 .request-table thead tr th:first-child {
     border-top-left-radius: 8px;
 }
 
-/* ヘッダーの右端の角を丸くする */
 .request-table thead tr th:last-child {
     border-top-right-radius: 8px;
 }
@@ -107,7 +99,6 @@ body {
     text-decoration: none;
 }
 
-/* css/attendance-detail.css に追加 */
 .detail-textarea[readonly] {
     background-color: #f5f5f5;
     color: #888;
@@ -123,9 +114,9 @@ body {
 
 .request-table {
     width: 100%;
-    /* 行の間隔を空けるために分離モデルに変更 */
+
     border-collapse: separate;
-    border-spacing: 0 4px; /* 左右の間隔は0、上下に4pxの間隔を作る */
+    border-spacing: 0 4px;
 }
 
 .request-table th {
@@ -136,56 +127,50 @@ body {
 
 .request-table td {
     padding: 10px;
-    background-color: #ffffff; /* 各セルを白背景に */
-    border-top: 1px solid #eee;    /* 枠線で囲む（お好みで） */
+    background-color: #ffffff;
+    border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }
 
-/* 最後の行の、最初のセル (左下) */
 .request-table tr:last-child td:first-child {
     border-bottom-left-radius: 8px;
 }
 
-/* 最後の行の、最後のセル (右下) */
 .request-table tr:last-child td:last-child {
     border-bottom-right-radius: 8px;
 }
 
-/* --- レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用 */
 @media screen and (max-width: 850px) {
     .request-page {
         padding: 0 10px;
     }
 
     .request-tabs {
-        gap: 20px; /* タブレットでは間隔を詰める */
-        justify-content: space-around; /* 均等に配置して指で押しやすくする */
+        gap: 20px;
+        justify-content: space-around;
     }
 
     .tab-item {
-        font-size: 14px; /* 文字を少し小さく */
+        font-size: 14px;
     }
 
     .request-table th,
     .request-table td {
-        padding: 10px 8px; /* セルの余白を削る */
-        font-size: 13px;    /* 情報を1行に収めるための調整 */
+        padding: 10px 8px;
+        font-size: 13px;
     }
 
     .reason-cell {
-        max-width: 120px;  /* タブレットではさらに短く省略 */
+        max-width: 120px;
     }
 }
 
-/* PC (1400px以上) 用 */
 @media screen and (min-width: 1400px) {
     .request-page {
-        max-width: 1000px; /* PCでは少し広げて一覧性を高める */
+        max-width: 1000px;
     }
 
     .reason-cell {
-        max-width: 400px;  /* 広い画面では理由もしっかり読めるように */
+        max-width: 400px;
     }
 }

@@ -1,4 +1,4 @@
-/* --- 全体レイアウト --- */
+
 body {
     background-color: #f0eff2;
     margin: 0;
@@ -10,7 +10,6 @@ body {
     padding: 0 20px;
 }
 
-/* --- タイトル --- */
 .list-title {
     margin-bottom: 25px;
     border-left: 5px solid #000;
@@ -24,16 +23,15 @@ body {
     margin: 0;
 }
 
-/* --- ナビゲーション（前日・翌日など） --- */
 .nav-container {
     height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff; /* 白いカード */
+    background-color: #ffffff;
     border-radius: 8px;
     border: 1px solid #eee;
-    margin-bottom: 20px; /* テーブルとの間隔 */
+    margin-bottom: 20px;
 }
 
 .current-display {
@@ -61,13 +59,12 @@ body {
     color: #000;
 }
 .attendance-table thead tr {
-    /* ヘッダー行も1つの塊として見せる */
     background-color: #ffffff;
 }
 
 .attendance-table th {
-    padding: 20px 15px; /* 少し高さを出すと高級感が出ます */
-    background-color: #ffffff; /* 白背景に指定 */
+    padding: 20px 15px;
+    background-color: #ffffff;
     color: #666;
     font-size: 14px;
     font-weight: bold;
@@ -77,12 +74,10 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* ヘッダー左端の角丸 */
 .attendance-table th:first-child {
     border-top-left-radius: 8px;
 }
 
-/* ヘッダー右端の角丸 */
 .attendance-table th:last-child {
     border-top-right-radius: 8px;
 }
@@ -93,7 +88,6 @@ body {
 
 .attendance-table {
     width: 100%;
-    /* 行の間隔を空けるための重要設定 */
     border-collapse: separate;
     border-spacing: 0 3px;
 }
@@ -107,21 +101,19 @@ body {
 
 .attendance-table td {
     padding: 10px;
-    background-color: #ffffff; /* 各行を白背景に */
+    background-color: #ffffff;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     font-size: 15px;
     color: #374151;
     text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02); /* 軽い影 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
 }
 
-/* 最後の行の、最初のセル (左下) */
 .attendance-table tbody tr:last-child td:first-child {
     border-bottom-left-radius: 8px;
 }
 
-/* 最後の行の、最後のセル (右下) */
 .attendance-table tbody tr:last-child td:last-child {
     border-bottom-right-radius: 8px;
 }
@@ -143,39 +135,35 @@ body {
     color: #888;
 }
 
-/* --- 7. レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用の調整 */
 @media screen and (max-width: 850px) {
     .attendance-page {
-        padding: 0 10px; /* 左右の余白を少し削る */
+        padding: 0 10px;
         margin: 20px auto;
     }
 
     .nav-container {
-        height: 50px; /* 少し高さを抑える */
+        height: 50px;
     }
 
     .current-display {
-        font-size: 16px; /* 文字を少し小さく */
+        font-size: 16px;
     }
 
     .attendance-table th,
     .attendance-table td {
-        padding: 8px 4px; /* セルの余白を詰める */
-        font-size: 13px;  /* 文字サイズを落として1行に収める */
+        padding: 8px 4px;
+        font-size: 13px;
     }
 }
 
-/* PC (1400px以上) 用の調整 */
 @media screen and (min-width: 1400px) {
     .attendance-page {
-        max-width: 1100px; /* PCでは少し広げて一覧性を高める */
+        max-width: 1100px;
     }
 
     .attendance-table th,
     .attendance-table td {
-        padding: 15px; /* PCではゆったりと余白を持たせる */
+        padding: 15px;
         font-size: 16px;
     }
 }

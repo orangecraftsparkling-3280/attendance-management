@@ -26,7 +26,6 @@
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>
-                        {{-- リンクのデザインを一覧の「詳細」に合わせる --}}
                         <a href="{{ route('admin.attendance.staff', ['id' => $user->id]) }}" class="text-detail">詳細</a>
                     </td>
                 </tr>

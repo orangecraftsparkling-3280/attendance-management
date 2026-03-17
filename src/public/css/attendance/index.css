@@ -1,22 +1,19 @@
-/* 親コンテナを画面全体の高さにし、中身を中央寄せにする */
 .attendance__content {
     display: flex;
-    justify-content: center; /* 左右中央 */
+    justify-content: center;
     min-height: calc(100vh - 80px);
     width: 100%;
     box-sizing: border-box;
 }
 
-/* パネル自体のスタイリング（必要に応じて） */
 .attendance__panel {
-    text-align: center;      /* テキストやボタンを中央に */
+    text-align: center;
     padding: 50px;
-    min-width: 350px;        /* パネルが潰れないように */
+    min-width: 350px;
 }
 
-/* 時刻表示のエリア */
 .attendance__time {
-    margin: 10px 0; /* 上下の余白を広げる */
+    margin: 10px 0;
 }
 
 #current-status {
@@ -30,40 +27,36 @@
     margin-bottom: 10px;
 }
 
-/* 実際の数字（h2タグ） */
 #active-time {
-    font-size: 80px;      /* かなり大きく設定（お好みで調整） */
-    font-weight: bold;    /* 太字にする */
-    letter-spacing: 0.05em; /* 数字の間隔を少し広げて視認性をアップ */
-    color: #333;          /* 文字色をハッキリさせる */
+    font-size: 80px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    color: #333;
     line-height: 1.2;
 }
 
-/* 日付のサイズもバランスを見て調整（任意） */
 #current-date {
     font-size: 30px;
     color: #666;
     margin-bottom: 10px;
 }
 
-/* ボタンを横に並べるコンテナ */
 .attendance__button-row {
     display: flex;
-    gap: 12px;        /* ボタン間の隙間 */
+    gap: 12px;
     width: 100%;
     justify-content: center;
 }
 
 .attendance__button-row form {
-    flex: 1;          /* 2つのボタンを50%ずつの幅にする */
+    flex: 1;
 }
 
 .attendance__button-row .form-half {
-    flex: none;     /* flex: 1 を解除 */
+    flex: none;
     width: calc(50% - 6px);
 }
 
-/* --- 共通設定 --- */
 .attendance__button-primary,
 .attendance__button-secondary,
 .attendance__button-submit {
@@ -79,7 +72,6 @@
     align-items: center;
 }
 
-/* --- 黒背景ボタン（出勤・退勤） --- */
 .attendance__button-primary,
 .attendance__button-submit {
     background-color: #000;
@@ -87,20 +79,17 @@
     border: none;
 }
 
-/* --- 白背景ボタン（休憩入・戻） --- */
 .attendance__button-secondary {
     background-color: #fff;
     color: #000;
-    /* 黒いボタンと並んだ時に浮かないよう、細い枠線を引く */
+
     border: 2px solid #000;
 }
 
-/* ホバー時の演出：少しグレーにする */
 .attendance__button-secondary:hover {
     background-color: #f0f0f0;
 }
 
-/* --- レイアウト --- */
 .attendance__button-row {
     display: flex;
     gap: 12px;
@@ -110,58 +99,52 @@
     flex: 1;
 }
 
-/* 点滅アニメーションの定義 */
 @keyframes blinker {
     50% {
-        opacity: 0; /* 0.5秒の時点で透明にする */
+        opacity: 0;
     }
 }
 
-/* blinkクラスがついた要素を1秒周期で点滅させる */
 .blink {
     animation: blinker 1s linear infinite;
     display: inline-block;
-    width: 0.3em; /* 点滅しても文字がズレないように幅を固定 */
+    width: 0.3em;
     text-align: center;
 }
 
-/* --- レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用 */
 @media screen and (max-width: 850px) {
     .attendance__panel {
-        padding: 30px 20px; /* パネルの余白を少し詰める */
-        min-width: auto;     /* 画面幅に合わせる */
+        padding: 30px 20px;
+        min-width: auto;
         width: 100%;
     }
 
     #active-time {
-        font-size: 60px;     /* タブレットでは少しサイズを落とす */
+        font-size: 60px;
     }
 
     #current-date {
-        font-size: 24px;     /* 日付もバランスを見て調整 */
+        font-size: 24px;
     }
 
     .attendance__button-primary,
     .attendance__button-secondary,
     .attendance__button-submit {
-        height: 50px;        /* ボタンの高さを少し抑える */
+        height: 50px;
         font-size: 15px;
     }
 
     .attendance__button-row {
-        gap: 8px;            /* ボタン同士の隙間を詰める */
+        gap: 8px;
     }
 }
 
-/* PC (1400px以上) 用 */
 @media screen and (min-width: 1400px) {
     #active-time {
-        font-size: 100px;    /* 超大型画面ならさらに大きくしてもカッコいいです */
+        font-size: 100px;
     }
 
     .attendance__panel {
-        min-width: 500px;    /* PCではどっしりと構える */
+        min-width: 500px;
     }
 }

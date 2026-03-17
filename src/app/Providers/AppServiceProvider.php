@@ -13,6 +13,6 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // ここは空で大丈夫です
+       //
     }
 }

@@ -16,10 +16,8 @@ class RestFactory extends Factory
      */
     public function definition(): array
     {
-        // 12:00 〜 12:30 の間でランダムに開始
         $start = fake()->dateTimeBetween('12:00', '12:30');
 
-        // 開始時間の 45分後 〜 90分後 の間でランダムに終了（休憩の長さがバラバラになる）
         $end = (clone $start)->modify('+' . fake()->numberBetween(45, 90) . ' minutes');
 
         return [

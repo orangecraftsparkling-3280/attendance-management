@@ -11,7 +11,6 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // 1. 管理者を1件作成
         \App\Models\User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@example.com',
@@ -34,11 +33,10 @@ class UserSeeder extends Seeder
                     'name' => $userData['name'],
                     'email' => $userData['email'],
                     'role' => 'user',
-                    'password' => Hash::make('password'), // 全員「password」でログイン可能
+                    'password' => Hash::make('password'),
                 ]);
         }
 
-        // 3. それ以外のランダムな一般ユーザーを7名作成（合計10名にする場合）
         User::factory(7)
             ->has(
                 Attendance::factory()

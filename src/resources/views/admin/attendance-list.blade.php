@@ -2,7 +2,6 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/admin/list.css') }}">
-{{-- カレンダーアイコン用 --}}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 @endsection
 
@@ -13,7 +12,6 @@
     </div>
 
     <div class="attendance-card">
-        {{-- ナビゲーション --}}
         <div class="nav-container">
             <a href="{{ route('admin.attendance.list', ['date' => $prevDate]) }}" class="nav-btn">← 前日</a>
 
@@ -41,16 +39,9 @@
                     @forelse($attendances as $attendance)
                     <tr>
                         <td>{{ $attendance->user->name }}</td>
-                        {{-- アクセサ getDisplayStartTimeAttribute() を使用 --}}
                         <td>{{ $attendance->display_start_time ?? '-' }}</td>
-
-                        {{-- アクセサ getDisplayEndTimeAttribute() を使用 --}}
                         <td>{{ $attendance->display_end_time ?? '勤務中' }}</td>
-
-                        {{-- アクセサ getTotalRestTimeAttribute() を使用 --}}
                         <td>{{ $attendance->total_rest_time }}</td>
-
-                        {{-- アクセサ getTotalWorkTimeAttribute() を使用 --}}
                         <td>{{ $attendance->total_work_time }}</td>
                         <td>
                             <a href="{{ route('admin.attendance.detail', $attendance->id) }}" class="text-detail">詳細</a>

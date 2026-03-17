@@ -1,5 +1,5 @@
 .register-form_content {
-margin: 0 auto;
+    margin: 0 auto;
     padding: 30px 20px;
     max-width: 800px;
     min-height: calc(100vh - 100px);
@@ -11,12 +11,12 @@ margin: 0 auto;
     text-align: center;
 }
 
-.register-form_heading h1{
-    font-size:24px;
+.register-form_heading h1 {
+    font-size: 24px;
 }
 
-.form_label-item{
-    font-size:16px;
+.form_label-item {
+    font-size: 16px;
     font-weight: bold;
 }
 .form {
@@ -82,40 +82,36 @@ margin: 0 auto;
     font-size: 16px;
 }
 
-/* --- レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用 */
 @media screen and (max-width: 850px) {
     .register-form_content {
         padding: 40px 20px;
     }
 
     .form {
-        max-width: 90%; /* 画面幅に合わせて少し広げる */
+        max-width: 90%;
     }
 
     .form_input-text input {
-        height: 48px; /* タブレットで入力しやすいよう高さをアップ */
+        height: 48px;
         font-size: 16px;
     }
 
     .form_button-submit {
-        height: 55px; /* ボタンも押しやすく調整 */
+        height: 55px;
         font-size: 18px;
     }
 
     .login_button-submit {
-        color: skyblue; /* ログイン画面のリンク色と統一 */
+        color: skyblue;
     }
 }
 
-/* PC (1400px以上) 用 */
 @media screen and (min-width: 1400px) {
     .register-form_content {
-        margin-top: 60px; /* 広い画面では少し下げて配置 */
+        margin-top: 60px;
     }
 
     .register-form_heading h1 {
-        font-size: 28px; /* タイトルを強調 */
+        font-size: 28px;
     }
 }

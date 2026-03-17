@@ -11,7 +11,6 @@
             <p id="current-status">{{ $status ?? '勤務外' }}</p>
         </div>
 
-        {{-- 日付表示 --}}
         <div class="attendance__date">
             <h1 id="current-date">0000年00月00日</h1>
         </div>
@@ -40,7 +39,6 @@
             </div>
 
             @elseif($status === '休憩中')
-            {{-- 中央に半分：form-half により 50%幅で中央寄せ --}}
             <div class="attendance__button-row">
                 <form action="{{ route('attendance.rest-end') }}" method="POST" class="form-half">
                     @csrf
@@ -59,14 +57,12 @@
     function updateTime() {
         const now = new Date();
 
-        // 日付の表示更新
         const year = now.getFullYear();
         const month = String(now.getMonth() + 1).padStart(2, '0');
         const date = String(now.getDate()).padStart(2, '0');
         const days = ['日', '月', '火', '水', '木', '金', '土'];
         document.getElementById('current-date').textContent = `${year}年${month}月${date}日(${days[now.getDay()]})`;
 
-        // 時刻の表示更新
         const hour = String(now.getHours()).padStart(2, '0');
         const min = String(now.getMinutes()).padStart(2, '0');
         document.getElementById('active-time').innerHTML = `${hour}<span class="blink">:</span>${min}`;

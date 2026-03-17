@@ -19,10 +19,8 @@
 
             <nav class="header-nav">
                 @auth
-                {{-- 管理者ログイン画面以外の場合のみメニュー全体を表示 --}}
                 @if(!Route::is('admin.login'))
 
-                {{-- 1. 権限に応じたメニューの出し分け --}}
                 @if(auth()->user()->role === 'admin')
                 <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
                 <a href="{{ route('admin.staff.list') }}">スタッフ一覧</a>
@@ -33,7 +31,6 @@
                 <a href="{{ route('stamp_correction_request.list') }}">申請</a>
                 @endif
 
-                {{-- 2. ログアウトボタン --}}
                 <form action="{{ route('logout') }}" method="post" class="logout-form" >
                     @csrf
 

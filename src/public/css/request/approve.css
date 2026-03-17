@@ -1,4 +1,3 @@
-/* --- 1. 全体レイアウト --- */
 body {
     background-color: #f0eff2;
     margin: 0;
@@ -22,7 +21,6 @@ body {
     margin: 0;
 }
 
-/* --- 2. テーブル構造 --- */
 .detail-table {
     width: 100%;
     border-collapse: separate;
@@ -43,14 +41,13 @@ body {
     background-color: #fff;
 }
 
-/* --- 3. 時刻表示 & --:-- 消去ロジック --- */
 .field-wrapper,
 .date-display,
 .time-cell {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* 左端を基準に並べる */
-    width: 100%; /* 全体の横幅をここで固定する */
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .time-box {
@@ -65,7 +62,7 @@ body {
     height: 40px;
     text-align: center;
     font-size: 16px;
-    font-weight: bold; /* ← ここを追加：数字を太字にする */
+    font-weight: bold;
     box-sizing: border-box;
 }
 
@@ -75,7 +72,6 @@ body {
     font-weight: bold;
 }
 
-/* --- 4. 備考欄 --- */
 .detail-textarea {
     width: 66%;
     box-sizing: border-box;
@@ -88,20 +84,19 @@ body {
 }
 
 .detail-textarea[readonly] {
-    background-color: transparent; /* 背景を白から透明に */
-    border: 1px solid transparent; /* 枠線を透明にして位置を固定 */
-    color: #333; /* 文字色を薄いグレーから黒へ */
-    padding: 12px; /* 入力時と同じ余白を維持 */
-    resize: none; /* 右下のサイズ変更つまみを消す */
-    cursor: default; /* カーソルを「禁止」から「通常」へ */
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: #333;
+    padding: 12px;
+    resize: none;
+    cursor: default;
     outline: none;
-    min-height: 40px; /* クリック時の青い枠線を消す */
+    min-height: 40px;
 }
 
-/* --- 5. ボタン・メッセージ：エラーを左、ボタンを右 --- */
 .edit-section {
     display: flex;
-    justify-content: flex-end; /* 子要素を右端に寄せる */
+    justify-content: flex-end;
     align-items: center;
     margin-top: 20px;
     width: 100%;
@@ -123,8 +118,6 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     display: none;
 }
 
-/* --- 日付エリアの修正 --- */
-/* --- 3.e  時刻表示 & 共通テキスト --- */
 .info-text {
     display: flex;
     align-items: center;
@@ -132,16 +125,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     font-weight: bold;
     height: 40px;
     color: #333;
-    /* width: 25% はここから削除します */
 }
 
-/* --- 名前専用の表示設定 --- */
 .name-display {
-    width: 25%; /* 下の time-box と幅を合わせる */
-    justify-content: center; /* 文字を中央に */
+    width: 25%;
+    justify-content: center;
 }
 
-/* --- 日付エリア (元のレイアウトを維持) --- */
 .date-display {
     display: flex;
     align-items: center;
@@ -152,55 +142,54 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .date-year {
     display: flex;
     justify-content: center;
-    width: 25%; /* 下の time-box と同じ幅 */
+    width: 25%;
     font-size: 16px;
     font-weight: bold;
 }
 
 .date-spacer {
-    width: 16%; /* 下の ～ と同じ幅 */
+    width: 16%;
     color: transparent;
 }
 
 .date-day {
     display: flex;
     justify-content: center;
-    width: 25%; /* 下の time-box と同じ幅 */
+    width: 25%;
     font-size: 16px;
     font-weight: bold;
 }
-/* 承認済みメッセージ（白背景・黒枠・黒文字：ボタンの反転） */
+
 .pending-message {
-    width: 100px; /* ボタンと同じ幅 */
-    height: 35px; /* ボタンと同じ高さ */
+    width: 100px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: gray; /* 背景を白に */
-    border: 1px solid #000; /* 黒い枠線 */
-    border-radius: 6px; /* ボタンと同じ丸み */
+    background-color: gray;
+    border: 1px solid #000;
+    border-radius: 6px;
     box-sizing: border-box;
 }
 
 .pending-message p {
-    color: white; /* 文字を黒に */
+    color: white;
     font-weight: bold;
     font-size: 16px;
     margin: 0;
 }
-/* --- 承認待ち時の枠線消去 --- */
+
 .time-box.no-border {
     border: 1px solid transparent;
     background-color: transparent;
     color: #333 !important;
-    font-weight: bold; /* 念のためここにも入っていると安心です */
+    font-weight: bold;
 }
 
 .time-box:invalid::-webkit-datetime-edit {
     color: transparent;
 }
 
-/* 2. 入力されたら（またはクリックしたら）色を出す */
 .time-box:valid::-webkit-datetime-edit,
 .time-box:focus::-webkit-datetime-edit {
     color: #333;
@@ -211,58 +200,54 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-bottom-left-radius: 8px;
 }
 
-/* 2. 【右下】一番下の行の、右端にある td */
 .detail-table tr:last-child td:last-child {
     border-bottom-right-radius: 8px;
 }
 
-/* 3. 【左上】もし必要なら一番上の左端も */
 .detail-table tr:first-child th:first-child {
     border-top-left-radius: 8px;
 }
 
-/* 4. 【右上】もし必要なら一番上の右端も */
 .detail-table tr:first-child td:last-child {
     border-top-right-radius: 8px;
 }
 
-/* --- 7. レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用の調整 */
 @media screen and (max-width: 850px) {
     .attendance-page {
-        padding: 0 10px; /* 左右の余白を少し詰める */
+        padding: 0 10px;
         margin: 20px auto;
     }
 
     .detail-table th {
-        width: 30%; /* ラベル側を少し広くして文字の縦潰れを防ぐ */
+        width: 30%;
         font-size: 14px;
     }
 
-    /* 入力枠と日付表示の幅を調整 */
-    .time-box, .name-display, .date-year, .date-day {
-        width: 35%; /* 25%だと狭いので少し広げる */
+    .time-box,
+    .name-display,
+    .date-year,
+    .date-day {
+        width: 35%;
         font-size: 15px;
     }
 
-    .range-separator, .date-spacer {
-        width: 10%; /* 記号部分を詰めてバランスを取る */
+    .range-separator,
+    .date-spacer {
+        width: 10%;
     }
 
     .detail-textarea {
-        width: 100%; /* 備考欄はタブレットでは横いっぱいに使うと入力しやすい */
+        width: 100%;
     }
 
     .edit-section {
-        justify-content: center; /* ボタン類を中央に寄せてタップしやすくする */
+        justify-content: center;
     }
 }
 
-/* PC (1400px以上) 用の微調整 */
 @media screen and (min-width: 1400px) {
     .attendance-page {
-        max-width: 900px; /* PCでは少しだけ幅を広げてゆったり見せる */
+        max-width: 900px;
     }
 
     .list-title h1 {

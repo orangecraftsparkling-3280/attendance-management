@@ -38,11 +38,11 @@
     text-decoration: none;
     color: #fff;
     font-size: 14px;
-    /* --- 追加：ボタンと高さを合わせる --- */
+
     display: inline-flex;
     align-items: center;
     line-height: 1;
-    height: 30px; /* ロゴの高さ(30px)に合わせると、ヘッダー全体が一直線になります */
+    height: 30px;
 }
 
 .logout__button {
@@ -54,14 +54,13 @@
     cursor: pointer;
     padding: 0;
     margin: 0;
-    /* --- ここからが重要 --- */
-    line-height: 1; /* 行の高さを最小限にしてズレを防ぐ */
-    vertical-align: middle; /* 垂直方向の基準を中央に */
-    display: inline-flex; /* フレックスボックスにして整列しやすくする */
-    align-items: center; /* 中央揃え */
+
+    line-height: 1;
+    vertical-align: middle;
+    display: inline-flex;
+    align-items: center;
 }
 
-/* 念のため親のフォームも揃える */
 .logout-form {
     display: inline-flex;
     align-items: center;
@@ -72,37 +71,33 @@
     opacity: 0.8;
 }
 
-/* --- レスポンス調整 --- */
-
-/* タブレット (768px - 850px) 用 */
 @media screen and (max-width: 850px) {
     .header-inner {
-        padding: 0 15px; /* 左右の余白を少し詰める */
+        padding: 0 15px;
     }
 
     .header-logo {
-        margin-right: 20px; /* ロゴ横の余白を半分に */
+        margin-right: 20px;
     }
 
     .header-nav {
-        gap: 12px; /* メニュー同士の間隔を詰める */
+        gap: 12px;
     }
 
     .header-nav a,
     .logout__button {
-        font-size: 13px; /* 文字を少し小さくして収まりを良くする */
+        font-size: 13px;
     }
 }
 
-/* PC (1400px以上) 用 */
 @media screen and (min-width: 1400px) {
     .header-nav a,
     .logout__button {
-        font-size: 16px; /* 広い画面に合わせて視認性をアップ */
+        font-size: 16px;
         transition: color 0.3s ease;
     }
 
     .header-nav a:hover {
-        color: skyblue; /* ホバー時に他の画面のリンク色と合わせる */
+        color: skyblue;
     }
 }

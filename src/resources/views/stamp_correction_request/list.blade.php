@@ -10,7 +10,6 @@
         <h1>申請一覧</h1>
     </div>
 
-    {{-- 完了メッセージの表示 --}}
     @if(session('success'))
     <div class="alert-success">
         {{ session('success') }}
@@ -44,7 +43,6 @@
                 @forelse($attendances as $attendance)
                 <tr>
                     <td>
-                        {{-- ステータスバッジの表示をスッキリ整理 --}}
                         @if($attendance->status == 1)
                         <span class="status-badge waiting">承認待ち</span>
                         @elseif($attendance->status == 2)
@@ -52,12 +50,10 @@
                         @endif
                     </td>
                     <td>{{ $attendance->user->name }}</td>
-                    {{-- モデルのキャスト/アクセサにより日付のみが表示されます --}}
                     <td>{{ $attendance->display_date }}</td>
                     <td class="reason-cell">{{ $attendance->reason }}</td>
                     <td>{{ $attendance->updated_at->format('Y/m/d') }}</td>
                     <td>
-                        {{-- 管理者と一般ユーザーでリンク先を分岐 --}}
                         @php
                         $route = auth()->user()->role === 'admin'
                         ? route('admin.stamp_correction_request.approve', $attendance->id)

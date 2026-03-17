@@ -15,7 +15,6 @@
         @method('PATCH')
 
         <table class="detail-table">
-            {{-- 名前・日付・出退勤は今のままでOK --}}
             <tr>
                 <th>名前</th>
                 <td>
@@ -43,7 +42,6 @@
                 </td>
             </tr>
 
-            {{-- 休憩ループ --}}
             @foreach($attendance->rests as $index => $rest)
             <tr>
                 <th>休憩{{ $index + 1 }}</th>
@@ -57,7 +55,6 @@
             </tr>
             @endforeach
 
-            {{-- 新規休憩枠 (+1) --}}
             <tr>
                 <th>休憩{{ count($attendance->rests) + 1 }}</th>
                 <td class="time-cell">
@@ -77,7 +74,6 @@
             </tr>
         </table>
 
-        {{-- ボタンエリア：エラーを左、ボタンを右に --}}
         <div class="edit-section">
             <div class="form__error">
                 @error('time_error') <p class="error-message">{{ $message }}</p> @enderror

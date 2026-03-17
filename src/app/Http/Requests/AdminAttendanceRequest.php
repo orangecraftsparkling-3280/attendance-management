@@ -7,13 +7,11 @@ class AdminAttendanceRequest extends AttendanceRequest
 
     public function authorize(): bool
     {
-        // 管理者権限があるかチェック
         return auth()->user()->role === 'admin';
     }
 
     public function rules(): array
     {
-        // 親（AttendanceRequest）のルールをそのまま取得
         $rules = parent::rules();
 
         return $rules;
@@ -24,20 +22,17 @@ class AdminAttendanceRequest extends AttendanceRequest
             $start = $this->start_time;
             $end = $this->end_time;
 
-            // 1. 出退勤の逆転（要件1）
             if ($start && $end && $start >= $end) {
                 $validator->errors()->add('time_error', '出勤時間もしくは退勤時間が不適切な値です');
                 return;
             }
 
-            // 2 & 3. 休憩時間の妥当性（要件2, 3）
             $this->checkRests($validator, $start, $end);
         });
     }
 
     private function checkRests($validator, $start, $end)
     {
-        // 入力があるものだけを対象にする
         $allRests = array_merge(
             array_filter($this->input('rests', []), fn($r) => !empty($r['start']) && !empty($r['end'])),
             array_filter($this->input('new_rests', []), fn($r) => !empty($r['start']) && !empty($r['end']))
@@ -59,4 +54,3 @@ class AdminAttendanceRequest extends AttendanceRequest
         }
     }
 }
-

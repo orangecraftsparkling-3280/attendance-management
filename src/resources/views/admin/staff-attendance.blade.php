@@ -45,12 +45,11 @@
                     @endphp
                     <tr>
                         <td>{{ $day->format('m/d') }}({{ $day->isoFormat('ddd') }})</td>
-                        <td>{{ $attendance ? \Carbon\Carbon::parse($attendance->start_time)->format('H:i') : '' }}</td>
-                        <td>{{ ($attendance && $attendance->end_time) ? \Carbon\Carbon::parse($attendance->end_time)->format('H:i') : '' }}</td>
-                        <td>{{ $attendance ? $attendance->total_rest_time : '' }}</td>
-                        <td>{{ $attendance ? $attendance->total_work_time : '' }}</td>
+                        <td>{{ $attendance->display_start_time ?? '' }}</td>
+                        <td>{{ $attendance->display_end_time ?? '' }}</td>
+                        <td>{{ $attendance->total_rest_time ?? '' }}</td>
+                        <td>{{ $attendance->total_work_time ?? '' }}</td>
                         <td>
-                            {{-- $attendance があればその ID を、なければ $dateStr (日付) を渡す --}}
                             <a href="{{ route('admin.attendance.detail', ['id' => $attendance ? $attendance->id : $dateStr]) }}?user_id={{ $user->id }}" class="text-detail">
                                 詳細
                             </a>
@@ -61,12 +60,10 @@
             </table>
         </div>
     </div>
-        <div class="header-actions">
-            <a href="{{ route('admin.attendance.staff.csv', ['id' => $user->id, 'month' => request('month')]) }}" class="csv-btn">
-                CSV出力
-            </a>
-        </div>
+    <div class="header-actions">
+        <a href="{{ route('admin.attendance.staff.csv', ['id' => $user->id, 'month' => request('month')]) }}" class="csv-btn">
+            CSV出力
+        </a>
     </div>
-</div>
 </div>
 @endsection

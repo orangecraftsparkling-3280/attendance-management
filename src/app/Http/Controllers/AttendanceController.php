@@ -10,26 +10,22 @@ use Carbon\Carbon;
 
 class AttendanceController extends Controller
 {
-    // ... index, punchIn, restStart, restEnd, punchOut は変更なし ...
     public function index()
     {
         $user = Auth::user();
         $today = Carbon::today()->format('Y-m-d');
 
-        // 今日の最新の勤怠レコードを取得
         $attendance = Attendance::with('rests')
             ->where('user_id', $user->id)
             ->where('date', $today)
             ->first();
 
-        // 初期値は「勤務外」
         $status = '勤務外';
 
         if ($attendance) {
             if ($attendance->end_time) {
                 $status = '退勤済';
             } else {
-                // 最新の休憩レコードをチェック
                 $latestRest = $attendance->rests->last();
 
                 if ($latestRest && is_null($latestRest->end_time)) {
@@ -48,7 +44,7 @@ class AttendanceController extends Controller
             'user_id' => auth()->id(),
             'date' => Carbon::today(),
             'start_time' => Carbon::now()->format('H:i'),
-            'status' => 0, // 通常
+            'status' => 0,
         ]);
         return redirect()->back();
     }
@@ -77,9 +73,7 @@ class AttendanceController extends Controller
         $rest->update(['end_time' => Carbon::now()->format('H:i')]);
         return redirect()->back();
     }
-    /**
-     * 勤怠一覧表示
-     */
+
     public function list(Request $request)
     {
         $monthParam = $request->query('month', now()->format('Y-m'));
@@ -116,9 +110,6 @@ class AttendanceController extends Controller
         ));
     }
 
-    /**
-     * 勤怠詳細表示
-     */
     public function detail($id)
     {
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $id)) {
@@ -133,15 +124,12 @@ class AttendanceController extends Controller
         }
 
         if (!$attendance) {
-            // インスタンス化する際に配列でデータを渡すか、fillを使用します
             $attendance = new Attendance([
                 'user_id' => auth()->id(),
-                'date'    => $targetDate, // ここで 2026-03-02 等が入る
+                'date'    => $targetDate,
                 'status'  => 0,
             ]);
 
-            // 重要：Bladeの getRawOriginal('date') で値が取れるように、
-            // 内部の attributes 配列に値を確実に同期させます。
             $attendance->setRawAttributes([
                 'date'    => $targetDate,
                 'user_id' => auth()->id(),
@@ -155,30 +143,24 @@ class AttendanceController extends Controller
         return view('attendance.detail', compact('attendance'));
     }
 
-    /**
-     * 修正申請の作成（一般ユーザー）
-     */
     public function update(AttendanceRequest $request, $id)
     {
-        // 1. 日付かIDかを判定（バリデーションは AttendanceRequest で完了済み）
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $id)) {
             $targetDate = $id;
         } else {
             $targetDate = Attendance::findOrFail($id)->getAttributes()['date'];
         }
 
-        // 2. 勤怠本体の更新
         $attendance = Attendance::updateOrCreate(
             ['user_id' => auth()->id(), 'date' => $targetDate],
             [
                 'start_time' => $request->start_time,
                 'end_time'   => $request->end_time,
                 'reason'     => $request->reason,
-                'status'     => 1, // 承認待ち
+                'status'     => 1,
             ]
         );
 
-        // 3. 既存の休憩時間の更新
         if ($request->has('rests')) {
             foreach ($request->rests as $restId => $restData) {
                 $attendance->rests()->where('id', $restId)->update([
@@ -188,10 +170,8 @@ class AttendanceController extends Controller
             }
         }
 
-        // 4. 新規の休憩を追加
         if ($request->has('new_rests')) {
             foreach ($request->new_rests as $newData) {
-                // start と end 両方ある場合のみ保存
                 if (!empty($newData['start']) && !empty($newData['end'])) {
                     $attendance->rests()->create([
                         'start_time' => $newData['start'],
@@ -204,21 +184,17 @@ class AttendanceController extends Controller
         return redirect()->route('stamp_correction_request.list')
             ->with('success', '修正申請を保存しました。管理者の承認をお待ちください。');
     }
-    /**
-     * 申請一覧画面を表示（タブ切り替え対応）
-     */
+
     public function requestList(Request $request)
     {
         $tab = $request->query('tab', 'waiting');
         $status = ($tab === 'approved') ? 2 : 1;
 
-        // クエリのベースを作成
         $query = Attendance::with('user')
             ->whereNotNull('reason')
             ->where('status', $status)
             ->orderBy('updated_at', 'desc');
 
-        // 管理者でなければ、自分のデータだけに絞り込む
         if (auth()->user()->role !== 'admin') {
             $query->where('user_id', auth()->id());
         }

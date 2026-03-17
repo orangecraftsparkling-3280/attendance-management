@@ -7,20 +7,15 @@ use Illuminate\Http\Request;
 
 class EmailVerificationController extends Controller
 {
-    /**
-     * メール認証誘導画面を表示
-     */
+
     public function show(Request $request)
     {
-        // すでに認証済みの場合は打刻画面へリダイレクト
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()->route('attendance.index');
         }
 
         $email = $request->user()->email;
         $domain = substr(strrchr($email, "@"), 1);
-
-        // 主要なメールサービスのURLリスト
         $mailServices = [
             'gmail.com'      => 'https://mail.google.com/',
             'yahoo.co.jp'    => 'https://mail.yahoo.co.jp/',
