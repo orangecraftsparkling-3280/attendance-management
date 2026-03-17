@@ -42,7 +42,7 @@ MySQLコンテナの起動完了までに時間がかかることがあります
 数秒待ってから下記のコマンドを実行してください。
 
 ```bash
-docker compose exec php php artisan migrate --seed
+docker compose exec php php artisan migrate:fresh --seed
 ```
 
 ## テストの実行と品質担保
@@ -54,7 +54,7 @@ docker compose exec php php artisan migrate --seed
 コンテナ内で以下のコマンドを実行してください。
 
 ```bash
-php artisan test
+docker compose exec php php artisan test
 ```
 ## 🔐 テスト用アカウント
 
