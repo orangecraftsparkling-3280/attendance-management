@@ -41,7 +41,7 @@ class AttendanceRequest extends FormRequest
             $end = $this->end_time;
 
             if ($start && $end && $start >= $end) {
-                $validator->errors()->add('time_error', '出勤時間もしくは退勤時間が不適切な値です');
+                $validator->errors()->add('time_error', '出勤時間が不適切な値です');
                 return;
             }
 
