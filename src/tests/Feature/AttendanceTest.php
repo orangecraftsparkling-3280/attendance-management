@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use App\Models\Attendance;
-use App\Models\Rest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Carbon\Carbon;
 use Tests\TestCase;
@@ -27,27 +26,36 @@ class AttendanceTest extends TestCase
     {
         $this->actingAs($this->user);
 
-
         $this->get('/attendance')->assertSee('勤務外');
 
-
-        $attendance = Attendance::create([
+        $today = Carbon::today()->format('Y-m-d');
+        $attendanceId = \Illuminate\Support\Facades\DB::table('attendances')->insertGetId([
             'user_id'    => $this->user->id,
-            'date'       => Carbon::today()->toDateString(),
-            'start_time' => '09:00',
-            'status'     => 2,
+            'date'       => $today,
+            'start_time' => '09:00:00',
+            'status'     => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
+
         $this->get('/attendance')->assertSee('出勤中');
 
-
-        Rest::create([
-            'attendance_id' => $attendance->id,
-            'start_time'    => '12:00',
+        \Illuminate\Support\Facades\DB::table('rests')->insert([
+            'attendance_id' => $attendanceId,
+            'start_time'    => '12:00:00',
+            'created_at'    => now(),
+            'updated_at'    => now(),
         ]);
         $this->get('/attendance')->assertSee('休憩中');
 
+        \Illuminate\Support\Facades\DB::table('rests')
+            ->where('attendance_id', $attendanceId)
+            ->update(['end_time' => '13:00:00']);
 
-        $attendance->update(['end_time' => '18:00']);
+        \Illuminate\Support\Facades\DB::table('attendances')
+            ->where('id', $attendanceId)
+            ->update(['end_time' => '18:00:00']);
+
         $this->get('/attendance')->assertSee('退勤済');
     }
 
