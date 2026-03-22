@@ -41,7 +41,7 @@ class AttendanceRequest extends FormRequest
             $end = $this->end_time;
 
             if ($start && $end && $start >= $end) {
-                $validator->errors()->add('time_error', '出勤時間が不適切な値です');
+                $validator->errors()->add('start_time', '出勤時間もしくは退勤時間が不適切な値です');
                 return;
             }
 
@@ -51,29 +51,32 @@ class AttendanceRequest extends FormRequest
 
     private function checkRests($validator, $start, $end)
     {
-        $allRests = array_merge(
-            array_filter($this->input('rests', []), fn($r) => !empty($r['start']) && !empty($r['end'])),
-            array_filter($this->input('new_rests', []), fn($r) => !empty($r['start']) && !empty($r['end']))
-        );
+        foreach ($this->input('rests', []) as $key => $rest) {
+            if (empty($rest['start']) || empty($rest['end'])) continue;
+            $this->validateRestPair($validator, $rest, $start, $end, "rests.{$key}");
+        }
 
-        foreach ($allRests as $rest) {
-            $restStart = $rest['start'];
-            $restEnd = $rest['end'];
+        foreach ($this->input('new_rests', []) as $key => $rest) {
+            if (empty($rest['start']) || empty($rest['end'])) continue;
+            $this->validateRestPair($validator, $rest, $start, $end, "new_rests.{$key}");
+        }
+    }
 
-            if ($restStart < $start || $restStart > $end) {
-                $validator->errors()->add('rest_error', '休憩時間が不適切な値です');
-                return;
-            }
+    private function validateRestPair($validator, $rest, $start, $end, $baseKey)
+    {
+        $restStart = $rest['start'];
+        $restEnd = $rest['end'];
 
-            if ($restEnd > $end) {
-                $validator->errors()->add('rest_combined_error', '休憩時間もしくは退勤時間が不適切な値です');
-                return;
-            }
+        if ($restStart < $start || $restStart > $end) {
+            $validator->errors()->add("{$baseKey}.start", '休憩時間が不適切な値です');
+        }
 
-            if ($restStart >= $restEnd) {
-                $validator->errors()->add('rest_error', '休憩時間が不適切な値です');
-                return;
-            }
+        if ($restEnd > $end) {
+            $validator->errors()->add("{$baseKey}.end", '休憩時間もしくは退勤時間が不適切な値です');
+        }
+
+        if ($restStart >= $restEnd) {
+            $validator->errors()->add("{$baseKey}.start", '休憩時間が不適切な値です');
         }
     }
 }

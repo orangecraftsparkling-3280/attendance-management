@@ -95,10 +95,11 @@
 
         <div class="edit-section">
             <div class="form_error">
-                @error('time_error') <p class="error-message">{{ $message }}</p> @enderror
-                @error('rest_error') <p class="error-message">{{ $message }}</p> @enderror
-                @error('rest_combined_error') <p class="error-message">{{ $message }}</p> @enderror
-                @error('reason') <p class="error-message">{{ $message }}</p> @enderror
+                @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                <p class="error-message">{{ $error }}</p>
+                @endforeach
+                @endif
             </div>
 
             @if($attendance->status == 1)

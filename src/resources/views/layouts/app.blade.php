@@ -20,27 +20,38 @@
             <nav class="header-nav">
                 @auth
                 @if(!Route::is('admin.login'))
-
-                @if(auth()->user()->role === 'admin')
-                <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
-                <a href="{{ route('admin.staff.list') }}">スタッフ一覧</a>
-                <a href="{{ route('stamp_correction_request.list') }}">申請一覧</a>
-                @else
-                <a href="{{ route('attendance.index') }}">勤怠</a>
-                <a href="{{ route('attendance.list') }}">勤怠一覧</a>
-                <a href="{{ route('stamp_correction_request.list') }}">申請</a>
-                @endif
-
-                <form action="{{ route('logout') }}" method="post" class="logout-form" >
-                    @csrf
-
+                <ul>
                     @if(auth()->user()->role === 'admin')
-                    <input type="hidden" name="login_type" value="admin">
-                    @endif
-
-                    <button type="submit" class="logout__button">ログアウト</button>
-                </form>
-
+                    <li>
+                        <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.staff.list') }}">スタッフ一覧</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('stamp_correction_request.list') }}">申請一覧</a>
+                    </li>
+                    @else
+                    <li>
+                        <a href="{{ route('attendance.index') }}">勤怠</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('attendance.list') }}">勤怠一覧</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('stamp_correction_request.list') }}">申請</a>
+                    </li>
+                    <li>
+                        @endif
+                        <form action="{{ route('logout') }}" method="post" class="logout-form">
+                            @csrf
+                            @if(auth()->user()->role === 'admin')
+                            <input type="hidden" name="login_type" value="admin">
+                            @endif
+                            <button type="submit" class="logout__button">ログアウト</button>
+                        </form>
+                    </li>
+                </ul>
                 @endif
                 @endauth
             </nav>

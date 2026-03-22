@@ -105,5 +105,137 @@ class AttendanceTest extends TestCase
             'status' => 1,
             'reason' => '電車遅延のため',
         ]);
+
+        $response = $this->patch("/attendance/detail/{$attendance->id}", [
+            'start_time' => '18:00',
+            'end_time'   => '09:00',
+            'reason'     => 'テスト',
+        ]);
+        $response->assertSessionHasErrors(['start_time']);
+    }
+
+    public function test_current_date_display()
+    {
+        $this->actingAs($this->user);
+
+        $response = $this->get('/attendance');
+
+        $response->assertSee('function updateTime()', false);
+        $response->assertSee('now.getFullYear()', false);
+        $response->assertSee('now.getMonth() + 1', false);
+        $response->assertSee('document.getElementById(\'current-date\')', false);
+
+        $response->assertSee('id="current-date"', false);
+        $response->assertSee('id="active-time"', false);
+    }
+
+    public function test_user_can_see_own_attendance_list()
+    {
+        $otherUser = User::factory()->create();
+        Attendance::create([
+            'user_id' => $otherUser->id,
+            'date' => '2026-03-20',
+            'start_time' => '08:00:00',
+            'end_time' => '17:00:00',
+            'status' => 2,
+        ]);
+
+        Attendance::create([
+            'user_id' => $this->user->id,
+            'date' => '2026-03-21',
+            'start_time' => '09:00:00',
+            'end_time' => '18:00:00',
+            'status' => 2,
+        ]);
+
+        $this->actingAs($this->user);
+        $response = $this->get('/attendance/list');
+
+        $response->assertStatus(200);
+        $response->assertSee('03/21');
+        $response->assertSee('09:00');
+        $response->assertSee('18:00');
+        $response->assertSee('03/20');
+    }
+
+    public function test_attendance_detail_page_displays_correct_info()
+    {
+        $attendance = Attendance::create([
+            'user_id' => $this->user->id,
+            'date' => '2026-03-01',
+            'start_time' => '09:00:00',
+            'end_time' => '18:00:00',
+            'status' => 2,
+        ]);
+
+        $this->actingAs($this->user);
+        $response = $this->get("/attendance/detail/{$attendance->id}");
+
+        $response->assertStatus(200);
+        $response->assertSee($this->user->name);
+        $response->assertSee('2026');
+        $response->assertSee('3月1日');
+        $response->assertSee('09:00');
+        $response->assertSee('18:00');
+    }
+
+    public function test_rest_time_validation()
+    {
+        $attendance = Attendance::create([
+            'user_id' => $this->user->id,
+            'date' => '2026-03-01',
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+            'status' => 2,
+        ]);
+
+        $this->actingAs($this->user);
+
+        $response = $this->patch("/attendance/detail/{$attendance->id}", [
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+            'new_rests' => [
+                [
+                    'start' => '19:00',
+                    'end' => '20:00',
+                ]
+            ],
+            'reason' => 'テスト',
+        ]);
+        $response->assertSessionHasErrors(['new_rests.0.start']);
+
+        $this->get("/attendance/detail/{$attendance->id}")
+            ->assertSee('休憩時間が不適切な値です');
+    }
+
+    public function test_attendance_rest_end_validation()
+    {
+        $attendance = Attendance::create([
+            'user_id' => $this->user->id,
+            'date' => '2026-03-01',
+            'new_rests' => [
+                [
+                    'start' => '9:00',
+                    'end' => '18:00',
+                ]
+            ],
+            'status' => 2,
+        ]);
+
+        $this->actingAs($this->user);
+
+        $response = $this->patch("/attendance/detail/{$attendance->id}", [
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+            'new_rests' => [
+                ['start' => '12:00', 'end' => '19:00']
+            ],
+            'reason' => 'テスト',
+        ]);
+
+        $response->assertSessionHasErrors(['new_rests.0.end']);
+
+        $this->get("/attendance/detail/{$attendance->id}")
+            ->assertSee('休憩時間もしくは退勤時間が不適切な値です');
     }
 }

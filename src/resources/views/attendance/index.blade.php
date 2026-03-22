@@ -12,11 +12,11 @@
         </div>
 
         <div class="attendance__date">
-            <h1 id="current-date">0000年00月00日</h1>
+            <p id="current-date">0000年00月00日</p>
         </div>
 
         <div class="attendance__time">
-            <h2 id="active-time">00:00</h2>
+            <p id="active-time">00:00</p>
         </div>
 
         <div class="attendance__button-group">

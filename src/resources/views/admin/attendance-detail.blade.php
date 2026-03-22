@@ -76,14 +76,18 @@
 
         <div class="edit-section">
             <div class="form__error">
-                @error('time_error') <p class="error-message">{{ $message }}</p> @enderror
-                @error('rest_error') <p class="error-message">{{ $message }}</p> @enderror
-                @error('rest_combined_error') <p class="error-message">{{ $message }}</p> @enderror
-                @error('reason') <p class="error-message">{{ $message }}</p> @enderror
+                @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                <p class="error-message">{{ $error }}</p>
+                @endforeach
+                @endif
             </div>
 
             <button type="submit" class="btn-primary">修正</button>
         </div>
-    </form>
+
+        <button type="submit" class="btn-primary">修正</button>
+</div>
+</form>
 </div>
 @endsection
