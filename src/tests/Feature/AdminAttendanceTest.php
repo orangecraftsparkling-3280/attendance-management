@@ -90,6 +90,29 @@ class AdminAttendanceTest extends TestCase
         ]);
     }
 
+    public function test_admin_cannot_approve_already_approved_request()
+    {
+        Carbon::setTestNow(Carbon::create(2026, 3, 12));
+        $attendance = Attendance::create([
+            'user_id' => $this->user->id,
+            'date' => '2026-03-12',
+            'start_time' => '10:00',
+            'end_time' => '19:00',
+            'status' => 2,
+            'reason' => '修正願い'
+        ]);
+
+        $response = $this->actingAs($this->admin)
+            ->patch(route('admin.stamp_correction_request.approve', [
+                'attendance_correct_request_id' => $attendance->id
+            ]), [
+                'reason' => '再承認しようとするテスト'
+            ]);
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+    }
+
     public function test_admin_can_navigate_between_days()
     {
         $response = $this->actingAs($this->admin)->get('/admin/attendance/list?date=2026-03-12');
