@@ -85,9 +85,6 @@
 
             <button type="submit" class="btn-primary">修正</button>
         </div>
-
-        <button type="submit" class="btn-primary">修正</button>
-</div>
 </form>
 </div>
 @endsection
