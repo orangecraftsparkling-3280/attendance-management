@@ -14,8 +14,8 @@ class AdminAttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_time' => 'required',
-            'end_time'   => 'required',
+            'start_time' => ['required', 'date_format:H:i'],
+            'end_time'   => ['required', 'date_format:H:i'],
             'reason'     => 'required',
         ];
     }
@@ -24,6 +24,7 @@ class AdminAttendanceRequest extends FormRequest
     {
         return [
             'reason.required' => '備考を記入してください',
+            '*.date_format'   => '時刻の形式が正しくありません（例 09:00）',
         ];
     }
 
