@@ -196,8 +196,8 @@ class AttendanceController extends Controller
         if ($request->has('rests')) {
             foreach ($request->rests as $restId => $restData) {
                 $attendance->rests()->where('id', $restId)->update([
-                    'start_time' => $restData['start'],
-                    'end_time'   => $restData['end'],
+                    'start_time' => $restData['start'] ?: null,
+                    'end_time'   => $restData['end'] ?: null,
                 ]);
             }
         }
