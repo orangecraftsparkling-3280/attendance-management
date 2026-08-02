@@ -44,12 +44,12 @@
                 <tbody>
                     @forelse($attendances as $attendance)
                     <tr>
-                        <td>{{ $attendance->user->name }}</td>
-                        <td>{{ $attendance->display_start_time ?? '-' }}</td>
-                        <td>{{ $attendance->display_end_time ?? '勤務中' }}</td>
-                        <td>{{ $attendance->total_rest_time }}</td>
-                        <td>{{ $attendance->total_work_time }}</td>
-                        <td>
+                        <td data-label="名前">{{ $attendance->user->name }}</td>
+                        <td data-label="出勤">{{ $attendance->display_start_time ?? '-' }}</td>
+                        <td data-label="退勤">{{ $attendance->display_end_time ?? '勤務中' }}</td>
+                        <td data-label="休憩">{{ $attendance->total_rest_time }}</td>
+                        <td data-label="合計">{{ $attendance->total_work_time }}</td>
+                        <td data-label="詳細">
                             <a href="{{ route('admin.attendance.detail', $attendance->id) }}" class="text-detail">詳細</a>
                         </td>
                     </tr>

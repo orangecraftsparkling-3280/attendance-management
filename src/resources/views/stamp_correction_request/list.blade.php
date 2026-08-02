@@ -42,18 +42,18 @@
             <tbody>
                 @forelse($attendances as $attendance)
                 <tr>
-                    <td>
+                    <td data-label="状態">
                         @if($attendance->status == 1)
                         <span class="status-badge waiting">承認待ち</span>
                         @elseif($attendance->status == 2)
                         <span class="status-badge approved">承認済み</span>
                         @endif
                     </td>
-                    <td>{{ $attendance->user->name }}</td>
-                    <td>{{ $attendance->display_date }}</td>
-                    <td class="reason-cell">{{ $attendance->reason }}</td>
-                    <td>{{ $attendance->updated_at->format('Y/m/d') }}</td>
-                    <td>
+                    <td data-label="名前">{{ $attendance->user->name }}</td>
+                    <td data-label="対象日時">{{ $attendance->display_date }}</td>
+                    <td class="reason-cell" data-label="申請理由">{{ $attendance->reason }}</td>
+                    <td data-label="申請日時">{{ $attendance->updated_at->format('Y/m/d') }}</td>
+                    <td data-label="詳細">
                         @php
                         $route = auth()->user()->role === 'admin'
                         ? route('admin.stamp_correction_request.approve', $attendance->id)
