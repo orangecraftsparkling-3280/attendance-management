@@ -245,3 +245,32 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         max-width: 900px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .attendance-page {
+        padding: 0 10px;
+    }
+
+    .detail-table th {
+        width: 35%;
+        font-size: 13px;
+    }
+
+    .time-box,
+    .name-display,
+    .date-year,
+    .date-day {
+        width: 38%;
+        font-size: 14px;
+    }
+
+    .range-separator,
+    .date-spacer {
+        width: 8%;
+    }
+
+    .detail-textarea {
+        width: 90%;
+        font-size: 15px;
+    }
+}
