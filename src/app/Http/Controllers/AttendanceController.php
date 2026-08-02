@@ -40,6 +40,14 @@ class AttendanceController extends Controller
     }
     public function punchIn()
     {
+        $exists = Attendance::where('user_id', auth()->id())
+            ->where('date', Carbon::today())
+            ->exists();
+
+        if ($exists) {
+            return redirect()->back()->with('error', '本日は既に出勤済みです。');
+        }
+
         Attendance::create([
             'user_id' => auth()->id(),
             'date' => Carbon::today(),
