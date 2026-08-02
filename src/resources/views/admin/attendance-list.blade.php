@@ -11,6 +11,12 @@
         <h1>{{ $currentDate->format('Y年m月d日') }}の勤怠</h1>
     </div>
 
+    @if(session('success'))
+    <div class="alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
     <div class="attendance-card">
         <div class="nav-container">
             <a href="{{ route('admin.attendance.list', ['date' => $prevDate]) }}" class="nav-btn">← 前日</a>
