@@ -14,8 +14,8 @@ class AttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_time' => ['required'],
-            'end_time'   => ['required'],
+            'start_time' => ['required', 'date_format:H:i'],
+            'end_time'   => ['required', 'date_format:H:i'],
             'reason'     => ['required'],
             'rests.*.start' => ['nullable', 'date_format:H:i'],
             'rests.*.end'   => ['nullable', 'date_format:H:i'],
