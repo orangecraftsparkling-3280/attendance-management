@@ -23,9 +23,9 @@
             <tbody>
                 @foreach($users as $user)
                 <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>
+                    <td data-label="名前">{{ $user->name }}</td>
+                    <td data-label="メールアドレス">{{ $user->email }}</td>
+                    <td data-label="月次勤怠">
                         <a href="{{ route('admin.attendance.staff', ['id' => $user->id]) }}" class="text-detail">詳細</a>
                     </td>
                 </tr>

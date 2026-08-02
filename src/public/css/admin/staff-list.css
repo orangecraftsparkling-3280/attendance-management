@@ -140,3 +140,20 @@ body {
         font-size: 16px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .request-page {
+        padding: 0 10px;
+    }
+
+    .table-container .request-table td:nth-child(1),
+    .table-container .request-table td:nth-child(2),
+    .table-container .request-table td:nth-child(3) {
+        width: 100%;
+        text-align: right;
+    }
+
+    .table-container .request-table td:nth-child(2) {
+        word-break: break-all;
+    }
+}
