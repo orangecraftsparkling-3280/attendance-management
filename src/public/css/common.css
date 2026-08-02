@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .header-logo {
@@ -31,6 +32,44 @@
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin: 0;
+}
+
+.nav-toggle-icon,
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: #fff;
+    border-radius: 1px;
+}
+
+.nav-toggle-icon {
+    position: relative;
+}
+
+.nav-toggle-icon::before,
+.nav-toggle-icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.nav-toggle-icon::before {
+    top: -7px;
+}
+
+.nav-toggle-icon::after {
+    top: 7px;
 }
 
 .header-nav ul {
@@ -96,9 +135,45 @@
         gap: 12px;
     }
 
+    .nav-toggle {
+        display: block;
+    }
+
+    .header-nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background-color: #000000;
+        border-top: 1px solid #333;
+        padding: 10px 0;
+    }
+
+    .header-nav ul.is-open {
+        display: flex;
+    }
+
+    .header-nav li {
+        width: 100%;
+        text-align: center;
+    }
+
     .header-nav a,
     .logout__button {
-        font-size: 13px;
+        font-size: 15px;
+        justify-content: center;
+        width: 100%;
+        padding: 12px 0;
+        height: auto;
+    }
+
+    .logout-form {
+        width: 100%;
+        justify-content: center;
     }
 }
 

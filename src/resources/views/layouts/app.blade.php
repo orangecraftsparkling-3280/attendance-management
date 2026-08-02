@@ -20,7 +20,10 @@
             <nav class="header-nav">
                 @auth
                 @if(!Route::is('admin.login'))
-                <ul>
+                <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="header-nav-menu" aria-label="メニューを開く">
+                    <span class="nav-toggle-icon"></span>
+                </button>
+                <ul id="header-nav-menu">
                     @if(auth()->user()->role === 'admin')
                     <li>
                         <a href="{{ route('admin.attendance.list') }}">勤怠一覧</a>
@@ -60,6 +63,52 @@
     <main>
         @yield('content')
     </main>
+
+    <script>
+        (function () {
+            var toggle = document.querySelector('.nav-toggle');
+            var menu = document.getElementById('header-nav-menu');
+
+            if (!toggle || !menu) {
+                return;
+            }
+
+            function closeMenu() {
+                menu.classList.remove('is-open');
+                toggle.setAttribute('aria-expanded', 'false');
+            }
+
+            function openMenu() {
+                menu.classList.add('is-open');
+                toggle.setAttribute('aria-expanded', 'true');
+            }
+
+            toggle.addEventListener('click', function (event) {
+                event.stopPropagation();
+                if (menu.classList.contains('is-open')) {
+                    closeMenu();
+                } else {
+                    openMenu();
+                }
+            });
+
+            document.addEventListener('click', function (event) {
+                if (!menu.classList.contains('is-open')) {
+                    return;
+                }
+                if (!menu.contains(event.target) && event.target !== toggle) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    closeMenu();
+                }
+            });
+        })();
+    </script>
+
     @stack('scripts')
 </body>
 
