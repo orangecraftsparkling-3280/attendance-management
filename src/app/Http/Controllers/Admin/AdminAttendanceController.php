@@ -70,6 +70,19 @@ class AdminAttendanceController extends Controller
     {
         $attendance = Attendance::findOrFail($attendance_correct_request_id);
 
+        if ($attendance->status != 1) {
+            $message = 'この申請は既に処理されています。';
+
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $message,
+                ], 409);
+            }
+
+            return redirect()->back()->with('error', $message);
+        }
+
         $attendance->update(['status' => 2]);
 
         if ($request->ajax() || $request->wantsJson()) {
