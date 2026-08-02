@@ -119,7 +119,9 @@ class AttendanceController extends Controller
                 ->first();
             $targetDate = $id;
         } else {
-            $attendance = Attendance::with(['user', 'rests'])->find($id);
+            $attendance = Attendance::with(['user', 'rests'])
+                ->where('user_id', auth()->id())
+                ->find($id);
             $targetDate = $attendance ? $attendance->getAttributes()['date'] : now()->format('Y-m-d');
         }
 
@@ -148,7 +150,9 @@ class AttendanceController extends Controller
         if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $id)) {
             $targetDate = $id;
         } else {
-            $targetDate = Attendance::findOrFail($id)->getAttributes()['date'];
+            $targetDate = Attendance::where('user_id', auth()->id())
+                ->findOrFail($id)
+                ->getAttributes()['date'];
         }
 
         $attendance = Attendance::updateOrCreate(
