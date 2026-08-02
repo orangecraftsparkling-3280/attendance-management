@@ -44,12 +44,12 @@
                     $attendance = $attendances->get($dateStr);
                     @endphp
                     <tr>
-                        <td>{{ $day->format('m/d') }}({{ $day->isoFormat('ddd') }})</td>
-                        <td>{{ $attendance->display_start_time ?? '' }}</td>
-                        <td>{{ $attendance->display_end_time ?? '' }}</td>
-                        <td>{{ $attendance->total_rest_time ?? '' }}</td>
-                        <td>{{ $attendance->total_work_time ?? '' }}</td>
-                        <td>
+                        <td data-label="日付">{{ $day->format('m/d') }}({{ $day->isoFormat('ddd') }})</td>
+                        <td data-label="出勤">{{ $attendance->display_start_time ?? '' }}</td>
+                        <td data-label="退勤">{{ $attendance->display_end_time ?? '' }}</td>
+                        <td data-label="休憩">{{ $attendance->total_rest_time ?? '' }}</td>
+                        <td data-label="合計">{{ $attendance->total_work_time ?? '' }}</td>
+                        <td data-label="詳細">
                             <a href="{{ route('admin.attendance.detail', ['id' => $attendance ? $attendance->id : $dateStr]) }}?user_id={{ $user->id }}" class="text-detail">
                                 詳細
                             </a>

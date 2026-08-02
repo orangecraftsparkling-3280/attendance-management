@@ -188,3 +188,60 @@
         color: skyblue;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .table-container {
+        overflow-x: visible;
+    }
+
+    .table-container .attendance-table thead,
+    .table-container .request-table thead {
+        display: none;
+    }
+
+    .table-container .attendance-table,
+    .table-container .request-table,
+    .table-container .attendance-table tbody,
+    .table-container .request-table tbody,
+    .table-container .attendance-table tr,
+    .table-container .request-table tr,
+    .table-container .attendance-table td,
+    .table-container .request-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table-container .attendance-table tr,
+    .table-container .request-table tr {
+        margin-bottom: 12px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .table-container .attendance-table td,
+    .table-container .request-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 12px;
+        text-align: right;
+        border: none;
+        box-shadow: none;
+    }
+
+    .table-container .attendance-table td:not(.no-data):not(.empty-message)::before,
+    .table-container .request-table td:not(.no-data):not(.empty-message)::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #666;
+        text-align: left;
+    }
+
+    .table-container .attendance-table td.no-data,
+    .table-container .request-table td.empty-message {
+        display: block;
+        text-align: center;
+    }
+}

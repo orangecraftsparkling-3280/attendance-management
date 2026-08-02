@@ -45,17 +45,17 @@
                     $atd = $attendances->get($day->format('Y-m-d'));
                     @endphp
                     <tr class="{{ $day->isWeekend() ? 'is-weekend' : '' }}">
-                        <td class="{{ $day->isSaturday() ? 'text-saturday' : ($day->isSunday() ? 'text-sunday' : '') }}">
+                        <td class="{{ $day->isSaturday() ? 'text-saturday' : ($day->isSunday() ? 'text-sunday' : '') }}" data-label="日付">
                             {{ $day->format('m/d') }}({{ $day->isoFormat('ddd') }})
                         </td>
 
-                        <td>{{ $atd->display_start_time ?? '' }}</td>
-                        <td>{{ $atd->display_end_time ?? '' }}</td>
+                        <td data-label="出勤">{{ $atd->display_start_time ?? '' }}</td>
+                        <td data-label="退勤">{{ $atd->display_end_time ?? '' }}</td>
 
-                        <td>{{ $atd->total_rest_time ?? '' }}</td>
-                        <td>{{ $atd->total_work_time ?? '' }}</td>
+                        <td data-label="休憩">{{ $atd->total_rest_time ?? '' }}</td>
+                        <td data-label="合計">{{ $atd->total_work_time ?? '' }}</td>
 
-                        <td>
+                        <td data-label="詳細">
                             <a href="{{ route('attendance.detail', ['id' => $atd->id ?? $day->format('Y-m-d')]) }}" class="text-detail">
                                 詳細
                             </a>
