@@ -209,6 +209,8 @@ class AdminAttendanceController extends Controller
             }
         }
 
-        return redirect()->route('admin.attendance.list', ['id' => $attendance->id]);
+        return redirect()->route('admin.attendance.list', [
+            'date' => $attendance->getAttributes()['date'],
+        ])->with('success', '勤怠を更新しました。');
     }
 }
