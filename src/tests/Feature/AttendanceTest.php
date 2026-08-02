@@ -131,6 +131,8 @@ class AttendanceTest extends TestCase
 
     public function test_user_can_see_own_attendance_list()
     {
+        Carbon::setTestNow('2026-03-25'); // 「今日」を3月に固定
+
         $otherUser = User::factory()->create();
         Attendance::create([
             'user_id' => $otherUser->id,
@@ -156,6 +158,8 @@ class AttendanceTest extends TestCase
         $response->assertSee('09:00');
         $response->assertSee('18:00');
         $response->assertSee('03/20');
+
+        Carbon::setTestNow(); // 固定解除、他テストに影響させない
     }
 
     public function test_attendance_detail_page_displays_correct_info()

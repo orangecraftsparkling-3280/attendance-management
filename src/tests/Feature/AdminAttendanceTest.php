@@ -237,6 +237,8 @@ class AdminAttendanceTest extends TestCase
 
     public function test_admin_can_see_staff_monthly_attendance_with_navigation()
     {
+        Carbon::setTestNow(Carbon::create(2026, 3, 15)); // 「今日」を3月15日に固定
+
         $thisMonth = Carbon::now()->format('Y-m');
         $prevMonth = Carbon::now()->subMonth()->format('Y-m');
 
@@ -251,5 +253,7 @@ class AdminAttendanceTest extends TestCase
 
         $responsePrev->assertStatus(200);
         $responsePrev->assertSee(Carbon::now()->subMonth()->format('Y年n月'));
+
+        Carbon::setTestNow(); // 固定解除、他テストに影響させない
     }
 }
