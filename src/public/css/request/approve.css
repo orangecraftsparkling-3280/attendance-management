@@ -254,3 +254,27 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         font-size: 28px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .attendance-page {
+        padding: 0 10px;
+    }
+
+    .detail-table th {
+        width: 38%;
+        font-size: 13px;
+    }
+
+    .time-box,
+    .name-display,
+    .date-year,
+    .date-day {
+        width: 40%;
+        font-size: 14px;
+    }
+
+    .range-separator,
+    .date-spacer {
+        width: 8%;
+    }
+}
