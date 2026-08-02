@@ -148,3 +148,17 @@
         min-width: 500px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .attendance__panel {
+        padding: 20px 15px;
+    }
+
+    #active-time {
+        font-size: 48px;
+    }
+
+    #current-date {
+        font-size: 18px;
+    }
+}
