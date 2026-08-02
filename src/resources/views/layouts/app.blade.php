@@ -41,8 +41,8 @@
                     <li>
                         <a href="{{ route('stamp_correction_request.list') }}">申請</a>
                     </li>
+                    @endif
                     <li>
-                        @endif
                         <form action="{{ route('logout') }}" method="post" class="logout-form">
                             @csrf
                             @if(auth()->user()->role === 'admin')
