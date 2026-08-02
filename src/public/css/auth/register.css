@@ -115,3 +115,13 @@
         font-size: 28px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .register-form_content {
+        padding: 30px 15px;
+    }
+
+    .register-form_heading h1 {
+        font-size: 20px;
+    }
+}
