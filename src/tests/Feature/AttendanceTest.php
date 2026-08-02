@@ -322,4 +322,46 @@ class AttendanceTest extends TestCase
 
         Carbon::setTestNow();
     }
+
+    public function test_user_cannot_view_other_users_attendance_detail()
+    {
+        $otherUser = User::factory()->create();
+        $otherAttendance = Attendance::create([
+            'user_id' => $otherUser->id,
+            'date' => '2026-03-05',
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+            'status' => 2,
+        ]);
+
+        $this->actingAs($this->user);
+        $response = $this->get("/attendance/detail/{$otherAttendance->id}");
+
+        $response->assertStatus(200);
+        $response->assertDontSee($otherUser->name);
+    }
+
+    public function test_user_cannot_update_other_users_attendance()
+    {
+        $otherUser = User::factory()->create();
+        $otherAttendance = Attendance::create([
+            'user_id' => $otherUser->id,
+            'date' => '2026-03-05',
+            'start_time' => '09:00',
+            'end_time' => '18:00',
+            'status' => 2,
+        ]);
+
+        $originalStartTime = $otherAttendance->getAttributes()['start_time'];
+
+        $this->actingAs($this->user);
+        $response = $this->patch("/attendance/detail/{$otherAttendance->id}", [
+            'start_time' => '10:00',
+            'end_time' => '19:00',
+            'reason' => '不正アクセステスト',
+        ]);
+
+        $response->assertStatus(404);
+        $this->assertSame($originalStartTime, $otherAttendance->fresh()->getAttributes()['start_time']);
+    }
 }
