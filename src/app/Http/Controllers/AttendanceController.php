@@ -53,6 +53,11 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::where('user_id', auth()->id())
             ->where('date', Carbon::today())->first();
+
+        if (!$attendance || $attendance->end_time) {
+            return redirect()->back()->with('error', '出勤情報が見つかりません。');
+        }
+
         $attendance->update(['end_time' => Carbon::now()->format('H:i')]);
         return redirect()->back();
     }
@@ -61,6 +66,11 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::where('user_id', auth()->id())
             ->where('date', Carbon::today())->first();
+
+        if (!$attendance || $attendance->end_time) {
+            return redirect()->back()->with('error', '出勤情報が見つかりません。');
+        }
+
         $attendance->rests()->create(['start_time' => Carbon::now()->format('H:i')]);
         return redirect()->back();
     }
@@ -69,7 +79,17 @@ class AttendanceController extends Controller
     {
         $attendance = Attendance::where('user_id', auth()->id())
             ->where('date', Carbon::today())->first();
+
+        if (!$attendance) {
+            return redirect()->back()->with('error', '出勤情報が見つかりません。');
+        }
+
         $rest = $attendance->rests()->whereNull('end_time')->first();
+
+        if (!$rest) {
+            return redirect()->back()->with('error', '休憩中の記録が見つかりません。');
+        }
+
         $rest->update(['end_time' => Carbon::now()->format('H:i')]);
         return redirect()->back();
     }
