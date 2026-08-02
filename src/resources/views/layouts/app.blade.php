@@ -14,7 +14,7 @@
     <header class="site-header">
         <div class="container header-inner">
             <div class="header-logo">
-                <img src="{{ asset('images/COACHTECHヘッダーロゴ.png') }}" alt="ロゴ" class="logo-img">
+                <span class="logo-text">attendance-management</span>
             </div>
 
             <nav class="header-nav">

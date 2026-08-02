@@ -50,7 +50,7 @@ docker compose exec php php artisan migrate:fresh --seed
 
 ## テストの実行と品質担保
 
-本プロジェクトでは、PHPUnit を用いた自動テストを導入し、全 26 項目のテストを通過しています。
+本プロジェクトでは、PHPUnit を用いた自動テストを導入し、全 33 項目のテストを通過しています。
 
 ### テストの実行方法
 
@@ -100,6 +100,10 @@ macOS / Windows / Linux（Dockerが動作する環境）
 ### 推奨ブラウザ
 
 Chrome / Firefox / Edge（最新バージョン）
+
+### 対応デバイス
+
+PC・タブレット・スマートフォンに対応したレスポンシブデザインを採用しています。
 
 ### 接続先一覧
 
