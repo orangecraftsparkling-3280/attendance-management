@@ -50,7 +50,7 @@ class AttendanceTest extends TestCase
 
         \Illuminate\Support\Facades\DB::table('rests')
             ->where('attendance_id', $attendanceId)
-            ->update(['end_time' => '13:00:00']);
+            ->update(['end_time' => '13:00']);
 
         \Illuminate\Support\Facades\DB::table('attendances')
             ->where('id', $attendanceId)
@@ -241,5 +241,85 @@ class AttendanceTest extends TestCase
 
         $this->get("/attendance/detail/{$attendance->id}")
             ->assertSee('休憩時間もしくは退勤時間が不適切な値です');
+    }
+
+    public function test_full_attendance_flow_punch_in_rest_out()
+    {
+        Carbon::setTestNow(Carbon::create(2026, 3, 10, 9, 0));
+        $this->actingAs($this->user);
+
+        $this->post('/attendance/punch-in');
+        $this->assertDatabaseHas('attendances', [
+            'user_id' => $this->user->id,
+            'date' => '2026-03-10 00:00:00',
+            'start_time' => '2026-03-10 09:00:00',
+        ]);
+
+        Carbon::setTestNow(Carbon::create(2026, 3, 10, 12, 0));
+        $this->post('/attendance/rest-start');
+        $this->assertDatabaseHas('rests', ['start_time' => '12:00']);
+
+        Carbon::setTestNow(Carbon::create(2026, 3, 10, 13, 0));
+        $this->post('/attendance/rest-end');
+        $this->assertDatabaseHas('rests', ['end_time' => '13:00']);
+
+        Carbon::setTestNow(Carbon::create(2026, 3, 10, 18, 0));
+        $this->post('/attendance/punch-out');
+        $this->assertDatabaseHas('attendances', [
+            'user_id' => $this->user->id,
+            'date' => '2026-03-10 00:00:00',
+            'end_time' => '2026-03-10 18:00:00',
+        ]);
+
+        Carbon::setTestNow();
+    }
+
+    public function test_punch_out_without_punch_in_does_not_error()
+    {
+        $this->actingAs($this->user);
+
+        $response = $this->post('/attendance/punch-out');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+    }
+
+    public function test_rest_start_without_punch_in_does_not_error()
+    {
+        $this->actingAs($this->user);
+
+        $response = $this->post('/attendance/rest-start');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+    }
+
+    public function test_rest_end_without_rest_start_does_not_error()
+    {
+        Carbon::setTestNow('2026-03-10');
+        $this->actingAs($this->user);
+
+        $this->post('/attendance/punch-in');
+        $response = $this->post('/attendance/rest-end');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+
+        Carbon::setTestNow();
+    }
+
+    public function test_duplicate_punch_in_is_rejected()
+    {
+        Carbon::setTestNow('2026-03-10');
+        $this->actingAs($this->user);
+
+        $this->post('/attendance/punch-in');
+        $response = $this->post('/attendance/punch-in');
+
+        $response->assertRedirect();
+        $response->assertSessionHas('error');
+        $this->assertDatabaseCount('attendances', 1);
+
+        Carbon::setTestNow();
     }
 }
