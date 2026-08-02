@@ -25,14 +25,18 @@ Route::get('/', function () {
 
 
 Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-Route::post('/admin/login', [AdminLoginController::class, 'login'])->name('admin.login.post');
+Route::post('/admin/login', [AdminLoginController::class, 'login'])
+    ->middleware('throttle:login')
+    ->name('admin.login.post');
 
 
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'show'])->name('register');
     Route::post('/register', [RegisterController::class, 'store'])->name('register.post');
     Route::get('/login', [LoginController::class, 'show'])->name('login');
-    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
+    Route::post('/login', [LoginController::class, 'authenticate'])
+        ->middleware('throttle:login')
+        ->name('login.post');
 });
 
 
