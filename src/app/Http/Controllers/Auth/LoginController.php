@@ -33,8 +33,6 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        setcookie('is_admin_user', '', time() - 3600, '/');
-
         $isAdmin = auth()->check() && auth()->user()->role === 'admin';
 
         Auth::logout();

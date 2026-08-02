@@ -24,8 +24,6 @@ class AdminLoginController extends Controller
             $user = Auth::user();
 
             if ($user->role === 'admin') {
-                setcookie('is_admin_user', '1', 0, '/');
-
                 $request->session()->regenerate();
                 return redirect()->route('admin.attendance.list');
             }
