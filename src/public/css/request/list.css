@@ -174,3 +174,19 @@ body {
         max-width: 400px;
     }
 }
+
+@media screen and (max-width: 480px) {
+    .table-container .request-table td.reason-cell {
+        max-width: 100%;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: normal;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .table-container .request-table td.reason-cell::before {
+        text-align: left;
+    }
+}
