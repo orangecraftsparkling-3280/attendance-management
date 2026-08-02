@@ -13,11 +13,11 @@
         @csrf
         <div class="form_group">
             <div class="form_group-title">
-                <span class="form_label-item">名前</span>
+                <label class="form_label-item" for="register-name">名前</label>
             </div>
             <div class="form_group-content">
                 <div class="form_input-text">
-                    <input type="text" name="name" value="{{ old('name') }}" />
+                    <input type="text" name="name" id="register-name" value="{{ old('name') }}" />
                 </div>
                 <div class="form_error">
                     @error('name')
@@ -28,11 +28,11 @@
         </div>
         <div class="form_group">
             <div class="form_group-title">
-                <span class="form_label-item">メールアドレス</span>
+                <label class="form_label-item" for="register-email">メールアドレス</label>
             </div>
             <div class="form_group-content">
                 <div class="form_input-text">
-                    <input type="email" name="email" value="{{ old('email') }}" />
+                    <input type="email" name="email" id="register-email" value="{{ old('email') }}" />
                 </div>
                 <div class="form_error">
                     @error('email')
@@ -43,11 +43,11 @@
         </div>
         <div class="form_group">
             <div class="form_group-title">
-                <span class="form_label-item">パスワード</span>
+                <label class="form_label-item" for="register-password">パスワード</label>
             </div>
             <div class="form_group-content">
                 <div class="form_input-text">
-                    <input type="password" name="password" />
+                    <input type="password" name="password" id="register-password" />
                 </div>
                 <div class="form_error">
                     @error('password')
@@ -58,11 +58,11 @@
         </div>
         <div class="form_group">
             <div class="form_group-title">
-                <span class="form_label-item">パスワード確認</span>
+                <label class="form_label-item" for="register-password-confirmation">パスワード確認</label>
             </div>
             <div class="form_group-content">
                 <div class="form_input-text">
-                    <input type="password" name="password_confirmation" />
+                    <input type="password" name="password_confirmation" id="register-password-confirmation" />
                 </div>
             </div>
         </div>

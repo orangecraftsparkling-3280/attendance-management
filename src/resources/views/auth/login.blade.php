@@ -14,11 +14,11 @@
         @csrf
         <div class="form_group">
             <div class="form_group-title">
-                <span class="form_label-item">メールアドレス</span>
+                <label class="form_label-item" for="login-email">メールアドレス</label>
             </div>
             <div class="form_group-content">
                 <div class="form_input-text">
-                    <input type="email" name="email" value="{{ old('email') }}" />
+                    <input type="email" name="email" id="login-email" value="{{ old('email') }}" />
                 </div>
                 <div class="form_error">
                     @error('email')
@@ -29,11 +29,11 @@
         </div>
         <div class="form_group">
             <div class="form_group-title">
-                <span class="form_label-item">パスワード</span>
+                <label class="form_label-item" for="login-password">パスワード</label>
             </div>
             <div class="form_group-content">
                 <div class="form_input-text">
-                    <input type="password" name="password" />
+                    <input type="password" name="password" id="login-password" />
                 </div>
                 <div class="form_error">
                     @error('password')

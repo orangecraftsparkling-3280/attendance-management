@@ -36,9 +36,9 @@
             <tr>
                 <th>出勤・退勤</th>
                 <td class="time-cell">
-                    <input type="time" name="start_time" class="time-box" value="{{ old('start_time', $attendance->start_time ? date('H:i', strtotime($attendance->start_time)) : '') }}">
+                    <input type="time" name="start_time" class="time-box" aria-label="出勤時刻" value="{{ old('start_time', $attendance->start_time ? date('H:i', strtotime($attendance->start_time)) : '') }}">
                     <span class="range-separator">～</span>
-                    <input type="time" name="end_time" class="time-box" value="{{ old('end_time', $attendance->end_time ? date('H:i', strtotime($attendance->end_time)) : '') }}">
+                    <input type="time" name="end_time" class="time-box" aria-label="退勤時刻" value="{{ old('end_time', $attendance->end_time ? date('H:i', strtotime($attendance->end_time)) : '') }}">
                 </td>
             </tr>
 
@@ -46,10 +46,10 @@
             <tr>
                 <th>休憩{{ $index + 1 }}</th>
                 <td class="time-cell">
-                    <input type="time" name="rests[{{ $rest->id }}][start]" class="time-box"
+                    <input type="time" name="rests[{{ $rest->id }}][start]" class="time-box" aria-label="休憩{{ $index + 1 }}開始時刻"
                         value="{{ old('rests.'.$rest->id.'.start', ($rest->getRawOriginal('start_time') && $rest->getRawOriginal('start_time') !== '00:00:00') ? date('H:i', strtotime($rest->start_time)) : '') }}">
                     <span class="range-separator">～</span>
-                    <input type="time" name="rests[{{ $rest->id }}][end]" class="time-box"
+                    <input type="time" name="rests[{{ $rest->id }}][end]" class="time-box" aria-label="休憩{{ $index + 1 }}終了時刻"
                         value="{{ old('rests.'.$rest->id.'.end', ($rest->getRawOriginal('end_time') && $rest->getRawOriginal('end_time') !== '00:00:00') ? date('H:i', strtotime($rest->end_time)) : '') }}">
                 </td>
             </tr>
@@ -58,9 +58,9 @@
             <tr>
                 <th>休憩{{ count($attendance->rests) + 1 }}</th>
                 <td class="time-cell">
-                    <input type="time" name="new_rests[0][start]" class="time-box" value="{{ old('new_rests.0.start', '') }}" required>
+                    <input type="time" name="new_rests[0][start]" class="time-box" aria-label="新しい休憩の開始時刻" value="{{ old('new_rests.0.start', '') }}" required>
                     <span class="range-separator">～</span>
-                    <input type="time" name="new_rests[0][end]" class="time-box" value="{{ old('new_rests.0.end', '') }}" required>
+                    <input type="time" name="new_rests[0][end]" class="time-box" aria-label="新しい休憩の終了時刻" value="{{ old('new_rests.0.end', '') }}" required>
                 </td>
             </tr>
 
@@ -68,7 +68,7 @@
                 <th>備考</th>
                 <td>
                     <div class="field-wrapper">
-                        <textarea name="reason" rows="4" class="detail-textarea">{{ old('reason', $attendance->reason) }}</textarea>
+                        <textarea name="reason" rows="4" class="detail-textarea" aria-label="備考">{{ old('reason', $attendance->reason) }}</textarea>
                     </div>
                 </td>
             </tr>
