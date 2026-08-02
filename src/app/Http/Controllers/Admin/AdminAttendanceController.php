@@ -102,7 +102,8 @@ class AdminAttendanceController extends Controller
             $calendar[] = $currentDate->copy()->addDays($i);
         }
 
-        $attendances = Attendance::where('user_id', $id)
+        $attendances = Attendance::with('rests')
+            ->where('user_id', $id)
             ->whereMonth('date', $currentDate->month)
             ->whereYear('date', $currentDate->year)
             ->get()
