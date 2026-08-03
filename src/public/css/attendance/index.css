@@ -18,12 +18,12 @@
 
 #current-status {
     display: inline-block;
-    background: #f0f0f0;
+    background: var(--color-primary-light);
     padding: 4px 16px;
-    border-radius: 50px;
+    border-radius: var(--radius-pill);
     font-size: 13px;
     font-weight: bold;
-    color: #666;
+    color: var(--color-primary-dark);
     margin-bottom: 10px;
 }
 
@@ -31,13 +31,13 @@
     font-size: 80px;
     font-weight: bold;
     letter-spacing: 0.05em;
-    color: #333;
+    color: var(--color-text);
     line-height: 1.2;
 }
 
 #current-date {
     font-size: 30px;
-    color: #666;
+    color: var(--color-text-muted);
     margin-bottom: 10px;
 }
 
@@ -62,7 +62,7 @@
 .attendance__button-submit {
     width: 100%;
     height: 56px;
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
@@ -74,20 +74,25 @@
 
 .attendance__button-primary,
 .attendance__button-submit {
-    background-color: #000;
+    background-color: var(--color-primary);
     color: #fff;
     border: none;
 }
 
-.attendance__button-secondary {
-    background-color: #fff;
-    color: #000;
+.attendance__button-primary:hover,
+.attendance__button-submit:hover {
+    background-color: var(--color-primary-hover);
+}
 
-    border: 2px solid #000;
+.attendance__button-secondary {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+
+    border: 2px solid var(--color-primary);
 }
 
 .attendance__button-secondary:hover {
-    background-color: #f0f0f0;
+    background-color: var(--color-primary-light);
 }
 
 .attendance__button-row {
