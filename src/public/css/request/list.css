@@ -1,8 +1,8 @@
 .alert-success {
-    background-color: #d1e7dd;
-    color: #0f5132;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
     padding: 8px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     margin-bottom: 10px;
     font-size: 16px !important;
 }
@@ -12,42 +12,62 @@
     gap: 50px;
     margin-bottom: 10px;
     padding-left: 5px;
-    border-bottom: 1px solid #d1d1d1;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .tab-item {
     text-decoration: none;
-    color: #888;
+    color: var(--color-text-subtle);
     font-size: 16px;
     font-weight: bold;
     padding: 10px 0;
-    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .tab-item.active {
-    color: #000;
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
 }
 
 .tab-item:hover {
-    color: #333;
+    color: var(--color-primary);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.status-badge.waiting {
+    background-color: var(--color-border);
+    color: var(--color-text-muted);
+}
+
+.status-badge.approved {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
 }
 
 .request-table th {
     padding: 15px;
-    background-color: #ffffff;
-    color: #333;
+    background-color: var(--color-surface);
+    color: var(--color-text);
     font-size: 16px;
     font-weight: bold;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border);
 }
 
 .request-table thead tr th:first-child {
-    border-top-left-radius: 8px;
+    border-top-left-radius: var(--radius-md);
 }
 
 .request-table thead tr th:last-child {
-    border-top-right-radius: 8px;
+    border-top-right-radius: var(--radius-md);
 }
 
 .request-table {
@@ -59,7 +79,7 @@
 .request-table td {
     padding: 15px;
     text-align: left;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid var(--color-border);
     font-size: 16px;
 }
 
@@ -71,19 +91,25 @@
 }
 
 .detail-link {
-    color: black;
+    color: var(--color-primary);
     font-weight: bold;
     text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.detail-link:hover {
+    color: var(--color-primary-hover);
+    text-decoration: underline;
 }
 
 .detail-textarea[readonly] {
-    background-color: #f5f5f5;
-    color: #888;
+    background-color: var(--color-page-bg);
+    color: var(--color-text-subtle);
     cursor: not-allowed;
 }
 
 .pending-message p {
-    color: #ff4d4d;
+    color: var(--color-error);
     font-weight: bold;
     text-align: center;
     margin-top: 10px;
@@ -98,23 +124,28 @@
 
 .request-table th {
     padding: 10px 15px;
-    color: #666;
+    color: var(--color-text-muted);
     font-size: 14px;
 }
 
 .request-table td {
     padding: 10px;
-    background-color: #ffffff;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    background-color: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    transition: background-color var(--transition-fast);
+}
+
+.request-table tbody tr:hover td {
+    background-color: var(--color-primary-light);
 }
 
 .request-table tr:last-child td:first-child {
-    border-bottom-left-radius: 8px;
+    border-bottom-left-radius: var(--radius-md);
 }
 
 .request-table tr:last-child td:last-child {
-    border-bottom-right-radius: 8px;
+    border-bottom-right-radius: var(--radius-md);
 }
 
 @media screen and (max-width: 850px) {
