@@ -7,7 +7,7 @@
 .detail-table th {
     width: 20%;
     padding: 10px;
-    background-color: #fff;
+    background-color: var(--color-surface);
     text-align: left;
     font-size: 16px;
 }
@@ -15,7 +15,7 @@
 .detail-table td {
     width: 100%;
     padding: 10px;
-    background-color: #fff;
+    background-color: var(--color-surface);
 }
 
 .field-wrapper,
@@ -31,10 +31,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     padding: 8px;
-    background-color: #ffffff;
+    background-color: var(--color-surface);
     width: 25%;
     height: 40px;
     text-align: center;
@@ -52,8 +52,8 @@
 .detail-textarea {
     width: 66%;
     box-sizing: border-box;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     padding: 12px;
     font-size: 16px;
     font-weight: bold;
@@ -63,7 +63,7 @@
 .detail-textarea[readonly] {
     background-color: transparent;
     border: 1px solid transparent;
-    color: #333;
+    color: var(--color-text);
     padding: 12px;
     resize: none;
     cursor: default;
@@ -82,13 +82,23 @@
 .btn-primary {
     width: 100px;
     height: 35px;
-    background-color: #000;
+    background-color: var(--color-primary);
     color: #fff;
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     font-weight: bold;
     cursor: pointer;
     flex-shrink: 0;
+    transition: background-color var(--transition-fast);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.btn-primary:disabled {
+    background-color: var(--color-text-subtle);
+    cursor: not-allowed;
 }
 
 input[type="time"]::-webkit-calendar-picker-indicator {
@@ -101,7 +111,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     font-size: 16px;
     font-weight: bold;
     height: 40px;
-    color: #333;
+    color: var(--color-text);
 }
 
 .name-display {
@@ -138,19 +148,20 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .pending-message {
-    width: 100px;
+    width: auto;
+    padding: 0 16px;
     height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: gray;
-    border: 1px solid #000;
-    border-radius: 6px;
+    background-color: var(--color-primary-light);
+    border: none;
+    border-radius: var(--radius-pill);
     box-sizing: border-box;
 }
 
 .pending-message p {
-    color: white;
+    color: var(--color-primary-dark);
     font-weight: bold;
     font-size: 16px;
     margin: 0;
@@ -159,7 +170,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .time-box.no-border {
     border: 1px solid transparent;
     background-color: transparent;
-    color: #333 !important;
+    color: var(--color-text) !important;
     font-weight: bold;
 }
 
@@ -169,7 +180,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 .time-box:valid::-webkit-datetime-edit,
 .time-box:focus::-webkit-datetime-edit {
-    color: #333;
+    color: var(--color-text);
 }
 
 .detail-table tr:last-child th:first-child,
