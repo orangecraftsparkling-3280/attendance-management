@@ -1,7 +1,10 @@
 .login-form_content {
     max-width: 800px;
-    margin: 0 auto;
+    margin: var(--space-8) auto;
     padding: 30px 15px;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
 }
 
 .login-form_heading {
@@ -34,7 +37,7 @@
 }
 
 .form_error-main {
-    color: #ff0000;
+    color: var(--color-error);
     text-align: center;
     margin-bottom: 15px;
     font-weight: bold;
@@ -44,7 +47,7 @@
 .form_error {
     min-height: 20px;
     margin-bottom: 5px;
-    color: red;
+    color: var(--color-error);
     text-align: left;
     font-size: 14px;
     line-height: 1.4;
@@ -55,9 +58,16 @@
     padding: 10px;
     width: 100%;
     height: 40px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     appearance: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form_input-text input:focus {
+    border-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--color-primary-light);
 }
 
 .form_button {
@@ -65,14 +75,19 @@
 }
 .form_button-submit {
     box-sizing: border-box;
-    background-color: black;
+    background-color: var(--color-primary);
     padding: 10px;
     width: 100%;
     height: 50px;
     border: none;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
     color: #fff;
     cursor: pointer;
+    transition: background-color var(--transition-fast);
+}
+
+.form_button-submit:hover {
+    background-color: var(--color-primary-hover);
 }
 
 .register_link {
@@ -83,7 +98,12 @@
 .register_button-submit {
     text-decoration: none;
     font-size: 16px;
-    color: skyblue;
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+}
+
+.register_button-submit:hover {
+    color: var(--color-primary-hover);
 }
 
 @media screen and (max-width: 850px) {
