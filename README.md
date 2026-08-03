@@ -25,6 +25,8 @@
 
 - **スタッフ管理**: 登録済みスタッフの一覧表示。
 - **日別勤怠確認**: 特定の日付の全スタッフの勤怠状況を一覧表示。
+- **スタッフ別勤怠閲覧**: 個別スタッフの月次勤怠データを一覧表示。
+- **CSV出力**: スタッフの月次勤怠データをCSV形式でダウンロード。
 - **申請承認**: スタッフからの修正依頼に対する承認。
 
 本プロジェクトはDockerコンテナ上で動作します。
@@ -144,8 +146,8 @@ DB管理: http://localhost:8080
 | カラム名       | 型              | PK  | UK  | NN  | 備考 |
 | :------------- | :-------------- | :-: | :-: | :-: | :--- |
 | **id**         | unsigned bigint |  ○  |     |  ○  |      |
-| **user_id**    | unsigned bigint |     |     |  ○  |      |
-| **date**       | date            |     |     |  ○  |      |
+| **user_id**    | unsigned bigint |     |  ○  |  ○  | user_id, dateの複合UNIQUE |
+| **date**       | date            |     |  ○  |  ○  | user_id, dateの複合UNIQUE |
 | **start_time** | time            |     |     |     |      |
 | **end_time**   | time            |     |     |     |      |
 | **reason**     | text            |     |     |     |      |
@@ -163,7 +165,7 @@ DB管理: http://localhost:8080
 | :---------------- | :-------------- | :-: | :-: | :-: | :--- |
 | **id**            | unsigned bigint |  ○  |     |  ○  |      |
 | **attendance_id** | unsigned bigint |     |     |  ○  |      |
-| **start_time**    | time            |     |     |  ○  |      |
+| **start_time**    | time            |     |     |     |      |
 | **end_time**      | time            |     |     |     |      |
 | **created_at**    | timestamp       |     |     |     |      |
 | **updated_at**    | timestamp       |     |     |     |      |
