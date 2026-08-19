@@ -184,4 +184,4 @@ DB管理: http://localhost:8080
 ## 作成者
 
 - 作成者: [kazuyuki asari]
-- GitHub: [https://github.com/orangecraftsparkling-3280](https://github.com/orangecraftsparkling-3280)
+- GitHub: [https://github.com/kazuyuki-a-dev](https://github.com/kazuyuki-a-dev)
